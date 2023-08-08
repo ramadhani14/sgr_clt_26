@@ -1,0 +1,3 @@
+db : asnorid_ayo
+user : asnorid_ayo
+pass : Qp%Xf4{Lv{1M
