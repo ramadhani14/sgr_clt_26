@@ -833,7 +833,7 @@ function datatablemastersoalpil(id){
         "bPaginate": false,
         "aaSorting": [],
         "columnDefs": [ {
-            "targets": [0,3,4],
+            "targets": [0,1],
             "orderable": false
         } ]
     });
