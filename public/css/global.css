@@ -44,7 +44,7 @@ tr > th {
 }
 .dataTables_wrapper .row:nth-child(2) {
   overflow-x: scroll;
-  max-height: 35vw;
+  max-height: 50vw;
 }
 
 /* SELECT 2 */

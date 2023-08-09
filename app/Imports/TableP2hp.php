@@ -52,8 +52,8 @@ class TableP2hp implements ToModel , SkipsOnError ,WithStartRow,WithCalculatedFo
                 'ket'     => $row[15],
                 'created_by'    => Auth::id(), 
                 'created_at'    => Carbon::now()->toDateTimeString(),
-                'updated_by'    => Auth::id(), 
-                'updated_at'    => Carbon::now()->toDateTimeString(),  
+                // 'updated_by'    => Auth::id(), 
+                // 'updated_at'    => Carbon::now()->toDateTimeString(),  
             ]);
         // }
     }

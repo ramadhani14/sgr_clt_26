@@ -15,7 +15,7 @@
 @endsection
 
 @section('contentheader')
-<h1 class="m-0">Data P2HP</h1>
+<h1 class="m-0">Data Pengaduan</h1>
 @endsection
 
 @section('contentheadermenu')
@@ -55,25 +55,18 @@
                   <thead>
                   <tr>
                   <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> SEMUA</th>
-                    <th>UBAH</th>
+                    <!-- <th>UBAH</th> -->
                     <!-- <th>NO</th> -->
                     <th>NAMA FILE</th>
                     <th>FILE STATUS</th>
-                    <th>NAMA AUDITAN/OPD/DESA</th>
-                    <th>TAHUN ANGGARAN</th>
-                    <th>PAGU ANGGARAN YANG DIAWASI</th>
-                    <th>KONDISI (TEMUAN)</th>
-                    <th>KELOMPOK TEMUAN</th>
-                    <th>NILAI TEMUAN</th>
-                    <th>(CALON/RENCANA) REKOMENDASI</th>
-                    <th>NAMA PENANGGUNG JAWAB (PJ) PENGEMBALIAN</th>
-                    <th>JABATAN PJ PENGEMBALIAN DALAM TAHUN ANGGARAN TERPERIKSA</th>
-                    <th>JENIS AUDIT/REVIU/EVALUASI</th>
-                    <th>No. PKP</th>
-                    <th>KETUA TIM</th>
-                    <th>TANGGAL P2HP</th>
-                    <th>NOMOR SURAT TUGAS</th>
-                    <th>KETERANGAN LAIN DAN LINK FILE PENDUKUNG</th>
+                    <th>TANGGAL LAPORAN</th>
+                    <th>NAMA PELAPOR</th>
+                    <th>PELAKU UTAMA DAN PIHAK LAIN TERLIBAT YANG DILAPORKAN</th>
+                    <th>JUDUL LAPORAN</th>
+                    <th>DETAIL LAPORAN</th>
+                    <th>URAIAN UPAYA TINDAKLANJUT</th>
+                    <th>STATUS (SELESAI/PROSES/DITOLAK)</th>
+                    <th>NO REG LAPORAN</th>
                     <th>CREATED_AT</th>
                     <th>CREATED_BY</th>
                     <th>UPDATED_AT</th>
@@ -86,13 +79,13 @@
                     <td width="1%" class="">
                         <input type="checkbox" name="id_master_soal" class="checkbox" value="{{$key->id}}">
                     </td>
-                    <td width="1%" class="_align_center">
+                    <!-- <td width="1%" class="_align_center">
                       <div class="btn-group">
                         <span data-toggle="tooltip" data-placement="left" title="Ubah Data">
                           <button data-toggle="modal" data-target="#modal-edit-{{$key->id}}" type="button" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
                         </span>
                       </div>
-                    </td>
+                    </td> -->
                     <!-- <td width="1%">{{$loop->iteration}}</td> -->
                     <td width="1%">{{$key->nama_file}}</td>
                       <!-- <td width="1%">
@@ -103,52 +96,21 @@
                         @endif
                       </td> -->
                     <td width="1%" class="_white_space _align_center">{{$key->file_status}}</td>
-                    <td width="1%" class="_white_space">{{$key->nama}}</td>
-                    <td width="1%" class="_white_space _align_center">{{$key->tahun}}</td>
-                    <td width="1%" class="_align_right">{{formatRupiah($key->pagu_anggaran)}}</td>
-                    <td width="1%">{{$key->kondisi_temuan}}</td>
-                    <td width="1%">{{$key->kelompok_temuan}}</td>
-                    <td width="1%" class="_align_right">{{formatRupiah($key->nilai_temuan)}}</td>
-                    <td width="1%">{{$key->rekomendasi}}</td>
-                    <td width="1%" class="_white_space">{{$key->nama_pj}}</td>
-                    <td width="1%">{{$key->jabatan_pj_terperiksa}}</td>
-                    <td width="1%" class="_white_space _align_center">{{$key->jenis_audit}}</td>
-                    <td width="1%">{{$key->no_pkp}}</td>
-                    <td width="1%" class="_white_space _align_center">{{$key->ketua_tim}}</td>
-                    <td width="1%" class="_white_space _align_center">{{$key->tgl_p2hp}}</td>
-                    <td width="1%" class="_white_space _align_center">{{$key->no_surat}}</td>
-                    <td width="1%">{{$key->ket}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->tanggal_laporan}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->nama_pelapor}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->pelaku_utama}}</td>
+                    <td width="1%">{{$key->judul_laporan}}</td>
+                    <td width="1%">{{$key->detail_laporan}}</td>
+                    <td width="1%">{{$key->uraian}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->status}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->no_reg}}</td>
                     <td width="1%" class="_white_space _align_center">{{waktuIndo($key->created_at)}}</td>
                     <td width="1%" class="_white_space _align_center">{{$key->c_by_r ? $key->c_by_r->name : ""}}</td>
                     <td width="1%" class="_white_space _align_center">{{$key->updated_at==$key->created_at ? "" : waktuIndo($key->updated_at)}}</td>
                     <td width="1%" class="_white_space _align_center">{{$key->u_by_r ? $key->u_by_r->name : ""}}</td>
                   </tr>
                   @endforeach
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="_white_space _align_center _bold">{{formatRupiah($data->sum('nilai_temuan'))}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+               
                   </tbody>
                   
                   <!-- <tfoot>
@@ -173,43 +135,7 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    @foreach($data as $key)                   
-    <!-- Modal Edit -->
-    <div class="modal fade" id="modal-edit-{{$key->id}}">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Ubah Data</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form method="post" id="formData_{{$key->id}}" class="form-horizontal">
-            @csrf
-            <input type="hidden" value="{{$key->id}}" name="iddata[]">
-            <div class="modal-body">
-              <!-- <div class="card-body"> -->
-                 <div class="form-group">
-                    <label for="ket_{{$key->id}}">KETERANGAN LAIN DAN LINK FILE PENDUKUNG</label>
-                    <textarea name="ket[]" id="ket_{{$key->id}}" rows="5" class="form-control" placeholder="KETERANGAN LAIN DAN LINK FILE PENDUKUNG">{{$key->ket}}</textarea>  
-                    <!-- <textarea name="ket[]" id="ket_{{$key->id}}" rows="5" class="form-control content_" placeholder="Keterangan">{{$key->ket}}</textarea>   -->
-                </div> 
-                <!-- /.form-group -->
-              <!-- </div> -->
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                <label class="ket-bintang">Bertanda <span class="bintang">*</span> Wajib diisi</label>
-                <button type="submit" class="btn btn-danger btn-ubah-data" idform="{{$key->id}}">Simpan</button>
-            </div>
-          </form>
-        </div>
-      <!-- /.modal-content -->
-      </div>
-    <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal edit -->
-    @endforeach
+
 
 <!-- Modal Tambah -->
 <div class="modal fade" id="modal-tambah">
@@ -336,7 +262,7 @@
           <div class="modal-body">
               <!-- <div class="card-body"> -->
               <div class="form-group">
-                <label>Download Template Excel <a href="{{asset('document/P2HP.xlsx')}}">disini</a></label>
+                <label>Download Template Excel <a href="{{asset('document/Pengaduan.xlsx')}}">disini</a></label>
               </div>
               <!-- <input type="hidden" name="idkategori" value=""> -->
               <div class="form-group row">
@@ -585,7 +511,7 @@
         $("input:checkbox[name=id_master_soal]:checked").each(function() {
           iddata.push($(this).val());
         });
-        var url = "{{ url('/hapusdatap2hpall') }}";
+        var url = "{{ url('/hapusdatapengaduanall') }}";
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -671,19 +597,91 @@
     // });
     
 
-     // Fungsi Ubah Data
-     $(document).on('click', '.btn-ubah-data', function (e) {
+    // Fungsi Ubah Data
+    $(document).on('click', '.btn-submit-data', function (e) {
         idform = $(this).attr('idform');
         $('#formData_'+idform).validate({
           ignore: ".ignore",
           rules: {
             'soal[]': {
               required: true
+            },
+            'a[]': {
+              required: true
+            },
+            'b[]': {
+              required: true
+            },
+            'c[]': {
+              required: true
+            },
+            'd[]': {
+              required: true
+            },
+            'e[]': {
+              required: true
+            },
+            'point_a[]': {
+              required: true
+            },
+            'point_b[]': {
+              required: true
+            },
+            'point_c[]': {
+              required: true
+            },
+            'point_d[]': {
+              required: true
+            },
+            'point_e[]': {
+              required: true
+            },
+            'jawaban[]': {
+              required: true
+            },
+            'pembahasan[]': {
+              required: true
             }
           },
           messages: {
             'soal[]': {
               required: "Soal tidak boleh kosong"
+            },
+            'a[]': {
+              required: "Pilihan A tidak boleh kosong"
+            },
+            'b[]': {
+              required: "Pilihan B tidak boleh kosong"
+            },
+            'c[]': {
+              required: "Pilihan C tidak boleh kosong"
+            },
+            'd[]': {
+              required: "Pilihan D tidak boleh kosong"
+            },
+            'e[]': {
+              required: "Pilihan E tidak boleh kosong"
+            },
+            'point_a[]': {
+              required: "Point Pilihan A tidak boleh kosong"
+            },
+            'point_b[]': {
+              required: "Point Pilihan B tidak boleh kosong"
+            },
+            'point_c[]': {
+              required: "Point Pilihan C tidak boleh kosong"
+            },
+            'point_d[]': {
+              required: "Point Pilihan D tidak boleh kosong"
+            },
+            'point_e[]': {
+              required: "Point Pilihan E tidak boleh kosong"
+            },
+            'jawaban[]': {
+              required: "Jawaban tidak boleh kosong"
+            },
+            'pembahasan[]': {
+              required: "Pembahasan tidak boleh kosong"
             }
           },
           errorElement: 'span',
@@ -707,7 +705,7 @@
           
             var formData = new FormData($('#formData_'+idform)[0]);
 
-            var url = "{{ url('/updatep2hp') }}";
+            var url = "{{ url('/updatemastersoal') }}/"+idform;
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -932,7 +930,7 @@
           
             var formData = new FormData($('#_formDataImport')[0]);
 
-            var url = "{{ url('/importp2hp') }}";
+            var url = "{{ url('/importpengaduan') }}";
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

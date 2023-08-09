@@ -35,17 +35,10 @@ class ProfilController extends Controller
             ];
             return view('home/admin')->with(compact($data_param));
         }elseif($userlevel==2){
-            $kolom = MasterKolom::orderBy('kode','asc')->get();
             $data_param = [
-                'submenu','menu','kolom'
+                'submenu','menu'
             ];
             return view('home/user')->with(compact($data_param));
-        }elseif($userlevel==3){
-            $user = User::where('user_level',4)->where('fk_affiliate',Auth::user()->id)->get();
-            $data_param = [
-                'submenu','menu','user'
-            ];
-            return view('home/admin')->with(compact($data_param));
         }
         
     }

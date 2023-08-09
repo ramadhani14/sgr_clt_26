@@ -181,7 +181,7 @@
 
   <!-- Main Sidebar Container -->
   <!-- <aside class="main-sidebar sidebar-dark-primary elevation-4"> -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link" style="font-size:1rem">
       <img src="{{asset($template->logo_kecil)}}" style="max-height: 30px;" alt="Logo" class="brand-image img-circle elevation-3">
@@ -258,7 +258,6 @@
           <li class="nav-header">MENU</li>
 
           @if(Auth::user()->user_level==1)
-          @if(Auth::user()->id==1)
           <li class="nav-item">
             <a href="{{url('template')}}" class="nav-link {{$menu=='template' ? 'active' : '' }}">
               <i class="nav-icon fas fa-cogs"></i>
@@ -268,12 +267,11 @@
             </a>
           </li> 
           @endif
-
           <li class="nav-item {{$menu=='master' ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{$menu=='master' ? 'active' : '' }}">
               <i class="nav-icon fas fa-sliders-h"></i>
               <p>
-                Master
+                Data
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -312,7 +310,7 @@
               </li>
             </ul>
           </li>
-          @if(Auth::user()->id==1)
+          @if(Auth::user()->user_level==1)
           <li class="nav-item">
             <a href="{{url('user')}}" class="nav-link {{$menu=='user' ? 'active' : '' }}">
               <i class="nav-icon fa fa-users"></i>
@@ -323,7 +321,7 @@
           </li>
           @endif
           
-          @endif
+          
           <!-- <li class="nav-item">
             <a href="{{url('affiliate')}}" class="nav-link {{$menu=='affiliate' ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-friends"></i>

@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\MasterTableLhp;
+use App\Models\MasterTablePengaduan;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -11,8 +11,7 @@ use Auth;
 use Carbon\Carbon;
 
 
-
-class TableLhp implements ToModel , SkipsOnError ,WithStartRow,WithCalculatedFormulas
+class TablePengaduan implements ToModel , SkipsOnError ,WithStartRow,WithCalculatedFormulas
 {
     /**
     * @param array $row
@@ -32,30 +31,18 @@ class TableLhp implements ToModel , SkipsOnError ,WithStartRow,WithCalculatedFor
         $namafile = $this->data['nama_file'];
         $kode = $this->data['kode'];
         $sheet = $this->data['sheet'];
-            return new MasterTableLhp([
+            return new MasterTablePengaduan([
                 'kode'     => $kode,
                 'nama_file'     => $namafile,
                 'file_status'     => $row[0],
-                'nama'     => $row[1],
-                'tahun'     => $row[2],
-                'pagu_anggaran'     => $row[3],
-                'kondisi_temuan'     => $row[4],
-                'kelompok_temuan'     => $row[5],
-                'nilai_temuan'     => $row[6],
-                'rekomendasi'     => $row[7],
-                'nama_pj'     => $row[8],
-                'jabatan_pj_terperiksa'     => $row[9],
-                'jabatan_pj_saat_ini'     => $row[10],
-                'catatan'     => $row[11],
-                'no_sktjm'     => $row[12],
-                'update_tl'     => $row[13],
-                'sisa_temuan'     => $row[14],
-                'kategori'     => $row[15],
-                'jenis_audit'     => $row[16],
-                'ketua_tim'     => $row[17],
-                'no_lhp'     => $row[18],
-                'tgl_lhp'     => $row[19],
-                'ket'     => $row[20],
+                'tanggal_laporan'     => $row[1],
+                'nama_pelapor'     => $row[2],
+                'pelaku_utama'     => $row[3],
+                'judul_laporan'     => $row[4],
+                'detail_laporan'     => $row[5],
+                'uraian'     => $row[6],
+                'status'     => $row[7],
+                'no_reg'     => $row[8],
                 'created_by'    => Auth::id(), 
                 'created_at'    => Carbon::now()->toDateTimeString(),
                 // 'updated_by'    => Auth::id(), 

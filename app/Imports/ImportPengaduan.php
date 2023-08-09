@@ -3,11 +3,11 @@
 namespace App\Imports;
 
 
-use App\Imports\TableP2hp;
+use App\Imports\TablePengaduan;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\SkipsUnknownSheets;
 
-class ImportP2hp implements WithMultipleSheets ,SkipsUnknownSheets
+class ImportPengaduan implements WithMultipleSheets ,SkipsUnknownSheets
 {
 
     private $data; 
@@ -25,10 +25,10 @@ class ImportP2hp implements WithMultipleSheets ,SkipsUnknownSheets
         $data['kode']=$kode;
         $data['sheet']=0;
         return [
-            0 => new TableP2hp($data),
+            0 => new TablePengaduan($data),
         ];
         // return [
-        //     new TableP2hp($data),
+        //     new TablePengaduan($data),
         // ];
     }
 

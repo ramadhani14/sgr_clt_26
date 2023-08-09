@@ -422,7 +422,7 @@
                 </div>   -->
                 <br>
                 <div class="form-group">
-                  <label for="provinsi_add">Password<span class="bintang">*</span> sama dengan email</label>
+                  <label>Note : <span class="input-keterangan"></span>Username & Password sama dengan email</label>
                 </div>
               <!-- <div class="card-body"> -->
               <!-- /.form-group -->

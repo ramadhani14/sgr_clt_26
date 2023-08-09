@@ -19,7 +19,7 @@ class CreateUser extends Seeder
         [
             'username'=>'admin@gmail.com',
             'name'=>'Admin',
-            'email'=>'drama2713@gmail.com',
+            'email'=>'admin@gmail.com',
             // 'jenis_kelamin'=>'l',
             'user_level'=>'1',
             // 'photo'=>'',
@@ -32,7 +32,7 @@ class CreateUser extends Seeder
         [
             'username'=>'user@gmail.com',
             'name'=>'User',
-            'email'=>'',
+            'email'=>'user@gmail.com',
             // 'jenis_kelamin'=>'l',
             'user_level'=>'2',
             // 'photo'=>'',

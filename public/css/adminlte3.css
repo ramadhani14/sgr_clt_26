@@ -58,6 +58,9 @@
 ._align_center{
   text-align: center;
 }
+._white_space{
+  white-space: nowrap;
+}
 .swal2-confirm{
   font-size: 0.8em !important;
 }

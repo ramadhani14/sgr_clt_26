@@ -12,4 +12,13 @@ class MasterTableP2hp extends Model
     use SoftDeletes;
     protected $table = "master_table_p2hp";
     protected $guarded = ["id"];
+
+    public function c_by_r()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+    public function u_by_r()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
 }

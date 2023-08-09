@@ -57,41 +57,48 @@ Route::post('ubahstatus', [App\Http\Controllers\UserController::class, 'ubahstat
 //     Route::get('/dashboard', [App\Http\Controllers\ProfilController::class, 'dashboard'])->name('dashboard');
 // });
 
-// Route::middleware([IsAdminOrAff::class])->group(function () {
+Route::middleware([IsAdminOrAff::class])->group(function () {
 
-//     Route::get('paketuser/{id}', [App\Http\Controllers\PaketUserController::class, 'index']);
-//     Route::post('storepaketuser', [App\Http\Controllers\PaketUserController::class, 'store']);
-//     Route::post('/hapuspaketuser/{id}', [App\Http\Controllers\PaketUserController::class, 'destroy']);
-//     Route::post('getPaketSoalUser', [App\Http\Controllers\PaketUserController::class, 'getPaketSoalUser']);
+    // Route::get('paketuser/{id}', [App\Http\Controllers\PaketUserController::class, 'index']);
+    // Route::post('storepaketuser', [App\Http\Controllers\PaketUserController::class, 'store']);
+    // Route::post('/hapuspaketuser/{id}', [App\Http\Controllers\PaketUserController::class, 'destroy']);
+    // Route::post('getPaketSoalUser', [App\Http\Controllers\PaketUserController::class, 'getPaketSoalUser']);
 
-//     Route::get('memberuser/{id}', [App\Http\Controllers\MemberUserController::class, 'index']);
-//     Route::post('storememberuser', [App\Http\Controllers\MemberUserController::class, 'store']);
-//     Route::post('/hapusmemberuser/{id}', [App\Http\Controllers\MemberUserController::class, 'destroy']);
-//     Route::post('getPaketSoalUser', [App\Http\Controllers\MemberUserController::class, 'getPaketSoalUser']);
+    // Route::get('memberuser/{id}', [App\Http\Controllers\MemberUserController::class, 'index']);
+    // Route::post('storememberuser', [App\Http\Controllers\MemberUserController::class, 'store']);
+    // Route::post('/hapusmemberuser/{id}', [App\Http\Controllers\MemberUserController::class, 'destroy']);
+    // Route::post('getPaketSoalUser', [App\Http\Controllers\MemberUserController::class, 'getPaketSoalUser']);
 
-//     Route::get('/profil', [App\Http\Controllers\ProfilController::class, 'profil']);
+    Route::get('/profil', [App\Http\Controllers\ProfilController::class, 'profil']);
 
-//     Route::get('/affiliate', [App\Http\Controllers\UserListController::class, 'affiliate']);
-//     Route::get('/affiliatedtl/{id}', [App\Http\Controllers\UserListController::class, 'affiliatedtl']);
-//     Route::get('/user', [App\Http\Controllers\UserListController::class, 'index']);
-//     Route::post('/storeuserlist', [App\Http\Controllers\UserListController::class, 'store']);
-//     Route::post('/updateuserlist/{id}', [App\Http\Controllers\UserListController::class, 'update']);
-//     Route::post('/hapususerlist/{id}', [App\Http\Controllers\UserListController::class, 'destroy']);
-//     Route::post('/resetuserpass', [App\Http\Controllers\UserListController::class, 'reset']);
+    // Route::get('/affiliate', [App\Http\Controllers\UserListController::class, 'affiliate']);
+    // Route::get('/affiliatedtl/{id}', [App\Http\Controllers\UserListController::class, 'affiliatedtl']);
+    Route::get('/user', [App\Http\Controllers\UserListController::class, 'index']);
+    Route::post('/storeuserlist', [App\Http\Controllers\UserListController::class, 'store']);
+    Route::post('/updateuserlist/{id}', [App\Http\Controllers\UserListController::class, 'update']);
+    Route::post('/hapususerlist/{id}', [App\Http\Controllers\UserListController::class, 'destroy']);
+    Route::post('/resetuserpass', [App\Http\Controllers\UserListController::class, 'reset']);
 
-//     Route::get('/lihathasilujian/{id}', [App\Http\Controllers\UserListController::class, 'lihathasilujian']);
+    // Route::get('/lihathasilujian/{id}', [App\Http\Controllers\UserListController::class, 'lihathasilujian']);
  
-//     Route::get('/exportsoal/{jns}/{id}', [App\Http\Controllers\PDFController::class, 'exportsoal']);
-// });
-Route::middleware([IsAdmin::class])->group(function () {
+    // Route::get('/exportsoal/{jns}/{id}', [App\Http\Controllers\PDFController::class, 'exportsoal']);
 
     Route::get('datalhp', [App\Http\Controllers\ImportDataController::class, 'indexlhp']);
+    Route::post('updatelhp', [App\Http\Controllers\ImportDataController::class, 'updatelhp']);
     Route::get('datap2hp', [App\Http\Controllers\ImportDataController::class, 'indexp2hp']);
+    Route::post('updatep2hp', [App\Http\Controllers\ImportDataController::class, 'updatep2hp']);
     Route::get('datapengaduan', [App\Http\Controllers\ImportDataController::class, 'indexpengaduan']);
+    Route::post('updatepengaduan', [App\Http\Controllers\ImportDataController::class, 'updatepengaduan']);
     Route::post('importlhp', [App\Http\Controllers\ImportDataController::class, 'importlhp']);
     Route::post('importp2hp', [App\Http\Controllers\ImportDataController::class, 'importp2hp']);
+    Route::post('importpengaduan', [App\Http\Controllers\ImportDataController::class, 'importpengaduan']);
     Route::post('/hapusdatalhpall', [App\Http\Controllers\ImportDataController::class, 'destroylhpall']);
     Route::post('/hapusdatap2hpall', [App\Http\Controllers\ImportDataController::class, 'destroyp2hpall']);
+    Route::post('/hapusdatapengaduanall', [App\Http\Controllers\ImportDataController::class, 'destroypengaduanall']);
+});
+Route::middleware([IsAdmin::class])->group(function () {
+
+    
 
     // Kategori Soal
     Route::get('kategorisoal', [App\Http\Controllers\KategoriSoalController::class, 'index']);

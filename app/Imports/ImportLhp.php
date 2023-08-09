@@ -23,10 +23,13 @@ class ImportLhp implements WithMultipleSheets ,SkipsUnknownSheets
         $kode = $this->data['kode'];
         $data['nama_file']=$namafile;
         $data['kode']=$kode;
-        $data['sheet']=1;
+        $data['sheet']=0;
         return [
-            new TableLhp($data),
+            0 => new TableLhp($data),
         ];
+        // return [
+        //     new TableLhp($data),
+        // ];
     }
 
     public function onUnknownSheet($sheetName)

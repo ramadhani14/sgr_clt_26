@@ -17,7 +17,7 @@ class IsAdminOrAff
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && (auth()->user()->user_level == 1 || auth()->user()->user_level == 3) ){
+        if(Auth::check() && (auth()->user()->user_level == 1 || auth()->user()->user_level == 2) ){
             return $next($request);
         }else{
             return redirect('home');

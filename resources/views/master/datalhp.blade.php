@@ -32,29 +32,32 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body">
+
               <div class="btn-group">
-                <!-- <span data-toggle="tooltip" data-placement="left" title="Tambah Data">
-                  <button data-toggle="modal" data-target="#modal-tambah" type="button" class="btn btn-sm btn-primary btn-add-absolute btn-add-absolute-group">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                <span data-toggle="tooltip" data-placement="left" title="Filter Data">
+                  <button data-toggle="modal" data-target="#modal-filter" type="button" class="btn btn-md btn-info">
+                    <i class="fas fa-filter" aria-hidden="true"></i>
                   </button>
-                </span> -->
-                <span data-toggle="tooltip" data-placement="left" title="Import Data LHP">
-                  <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-sm btn-success btn-add-absolute btn-add-absolute-group">
+                </span>
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Import Data">
+                  <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-md btn-success">
                       <i class="fas fa-file-excel"></i>
                   </button>
                 </span>
-                <span style="margin-left:35px" data-toggle="tooltip" data-placement="left" title="Hapus Data">
-                  <button type="button" class="btn-delete-all btn btn-sm btn-danger btn-add-absolute btn-add-absolute-group">
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Hapus Data">
+                  <button type="button" class="btn-delete-all btn btn-md btn-danger">
                       <i class="fas fa-trash"></i>
                   </button>
                 </span>
               </div>
 
               <!-- <button data-toggle="modal" data-target="#modal-tambah" type="button" class="btn btn-md btn-primary btn-absolute">Tambah</button> -->
-                <table id="tabledata" class="table  table-striped">
+                <table id="tabledata" class="table  table-bordered">
                   <thead>
                   <tr>
-                    <th>No</th>
+                    <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> SEMUA</th>
+                    <th>UBAH</th>
+                    <!-- <th>NO</th> -->
                     <th>NAMA FILE</th>
                     <th>FILE STATUS</th>
                     <th>NAMA AUDITAN/OPD/DESA</th>
@@ -77,14 +80,28 @@
                     <th>NO LHP</th>
                     <th>TANGGAL LHP</th>
                     <th>KETERANGAN LAIN DAN LINK FILE PENDUKUNG</th>
-                    <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> All</th>
+                    <th>CREATED_AT</th>
+                    <th>CREATED_BY</th>
+                    <th>UPDATED_AT</th>
+                    <th>UPDATED_BY</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($data as $key)
                   <tr>
-                    <td width="1%">{{$loop->iteration}}</td>
-                    <td width="1%">{{$key->nama_file}}</td>
+                    <td width="1%" class="">
+                        <input type="checkbox" name="id_master_soal" class="checkbox" value="{{$key->id}}">
+                    </td>
+                    <td width="1%" class="_align_center">
+                      <div class="btn-group">
+                        <span data-toggle="tooltip" data-placement="left" title="Ubah Data">
+                          <button data-toggle="modal" data-target="#modal-edit-{{$key->id}}" type="button" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                        </span>
+                      </div>
+                    </td>
+                    
+                    <!-- <td width="1%">{{$loop->iteration}}</td> -->
+                    <td width="1%" class="_white_space"><b>{{$key->nama_file}}</b></td>
                       <!-- <td width="1%">
                         @if($key->status==1)
                         <button iddata="{{$key->id}}" status="0" style="white-space:nowrap;" class="btn_ubah_status btn btn-md btn-danger"><i class="fa fa-close" aria-hidden="true"></i> Hapus Tanda</button>
@@ -92,32 +109,63 @@
                         <button iddata="{{$key->id}}" status="1" style="white-space:nowrap;" class="btn_ubah_status btn btn-md btn-info"><i class="fa fa-check" aria-hidden="true"></i> Tandai</button>
                         @endif
                       </td> -->
-                    <td width="1%">{{$key->file_status}}</td>
-                    <td width="1%">{{$key->nama}}</td>
-                    <td width="1%">{{$key->tahun}}</td>
-                    <td width="1%">{{$key->pagu_anggaran}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->file_status}}</td>
+                    <td width="1%" class="_white_space">{{$key->nama}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->tahun}}</td>
+                    <td width="1%" class="_align_right">{{formatRupiah($key->pagu_anggaran)}}</td>
                     <td width="1%">{{$key->kondisi_temuan}}</td>
                     <td width="1%">{{$key->kelompok_temuan}}</td>
-                    <td width="1%">{{$key->nilai_temuan}}</td>
+                    <td width="1%" class="_align_right">{{formatRupiah($key->nilai_temuan)}}</td>
                     <td width="1%">{{$key->rekomendasi}}</td>
-                    <td width="1%">{{$key->nama_pj}}</td>
-                    <td width="1%">{{$key->jabatan_pj_terperiksa}}</td>
-                    <td width="1%">{{$key->jabatan_pj_saat_ini}}</td>
+                    <td width="1%" class="_white_space">{{$key->nama_pj}}</td>
+                    <td width="1%" class="_white_space">{{$key->jabatan_pj_terperiksa}}</td>
+                    <td width="1%" class="_white_space">{{$key->jabatan_pj_saat_ini}}</td>
                     <td width="1%">{{$key->catatan}}</td>
                     <td width="1%">{{$key->no_sktjm}}</td>
-                    <td width="1%">{{$key->update_tl}}</td>
-                    <td width="1%">{{$key->sisa_temuan}}</td>
+                    <td width="1%" class="_align_right">{{formatRupiah($key->update_tl)}}</td>
+                    <td width="1%" class="_align_right">{{formatRupiah($key->sisa_temuan)}}</td>
                     <td width="1%">{{$key->kategori}}</td>
-                    <td width="1%">{{$key->jenis_audit}}</td>
-                    <td width="1%">{{$key->ketua_tim}}</td>
-                    <td width="1%">{{$key->no_lhp}}</td>
-                    <td width="1%">{{$key->tgl_lhp}}</td>
+                    <td width="1%" class="_white_space">{{$key->jenis_audit}}</td>
+                    <td width="1%" class="_white_space">{{$key->ketua_tim}}</td>
+                    <td width="1%" class="_white_space">{{$key->no_lhp}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->tgl_lhp}}</td>
                     <td width="1%">{{$key->ket}}</td>
-                    <td width="1%" class="middle">
-                        <input type="checkbox" name="id_master_soal" class="checkbox" value="{{$key->id}}">
-                    </td>
+                    <td width="1%" class="_white_space _align_center">{{waktuIndo($key->created_at)}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->c_by_r ? $key->c_by_r->name : ""}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->updated_at==$key->created_at ? "" : waktuIndo($key->updated_at)}}</td>
+                    <td width="1%" class="_white_space _align_center">{{$key->u_by_r ? $key->u_by_r->name : ""}}</td>
                   </tr>
                   @endforeach
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="_white_space _align_center _bold">{{formatRupiah($data->sum('nilai_temuan'))}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="_white_space _align_center _bold">{{formatRupiah($data->sum('sisa_temuan'))}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                
                   </tbody>
                   
@@ -144,110 +192,147 @@
     </section>
     <!-- /.content -->
 
+    @foreach($data as $key)                   
+    <!-- Modal Edit -->
+    <div class="modal fade" id="modal-edit-{{$key->id}}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Ubah Data</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="post" id="formData_{{$key->id}}" class="form-horizontal">
+            @csrf
+            <input type="hidden" value="{{$key->id}}" name="iddata[]">
+            <div class="modal-body">
+              <!-- <div class="card-body"> -->
+             
+                <div class="form-group">
+                    <label for="catatan_{{$key->id}}">CATATAN TINDAKLANJUT</label>
+                    <textarea name="catatan[]" id="catatan_{{$key->id}}" rows="5" class="form-control" placeholder="CATATAN TINDAKLANJUT">{{$key->catatan}}</textarea>  
+                    <!-- <textarea name="ket[]" id="ket_{{$key->id}}" rows="5" class="form-control content_" placeholder="Keterangan">{{$key->ket}}</textarea>   -->
+                </div> 
 
-<!-- Modal Tambah -->
-<div class="modal fade" id="modal-tambah">
+                <div class="form-group">
+                    <label for="no_sktjm_{{$key->id}}">NO. SKTJM</label>
+                    <input type="text" class="form-control" id="no_sktjm_{{$key->id}}" name="no_sktjm[]" placeholder="NO. SKTJM" value="{{$key->no_sktjm}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="update_tl_{{$key->id}}">UPDATE TL/CICILAN</label>
+                    <input type="text" class="form-control dec _align_right" id="update_tl_{{$key->id}}" name="update_tl[]" placeholder="UPDATE TL/CICILAN" value="{{formatRibuan($key->update_tl)}}">
+                </div>
+              
+                <div class="form-group">
+                    <label for="sisa_temuan_{{$key->id}}">Sisa Temuan</label>
+                    <input type="text" class="form-control dec _align_right" id="sisa_temuan_{{$key->id}}" name="sisa_temuan[]" placeholder="Sisa Temuan" value="{{formatRibuan($key->sisa_temuan)}}">
+                </div>
+
+                 <div class="form-group">
+                    <label for="ket_{{$key->id}}">KETERANGAN LAIN DAN LINK FILE PENDUKUNG</label>
+                    <textarea name="ket[]" id="ket_{{$key->id}}" rows="5" class="form-control" placeholder="KETERANGAN LAIN DAN LINK FILE PENDUKUNG">{{$key->ket}}</textarea>  
+                    <!-- <textarea name="ket[]" id="ket_{{$key->id}}" rows="5" class="form-control content_" placeholder="Keterangan">{{$key->ket}}</textarea>   -->
+                </div> 
+                
+                <!-- /.form-group -->
+              <!-- </div> -->
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <label class="ket-bintang">Bertanda <span class="bintang">*</span> Wajib diisi</label>
+                <button type="submit" class="btn btn-danger btn-ubah-data" idubah="{{$key->id}}">Simpan</button>
+            </div>
+          </form>
+        </div>
+      <!-- /.modal-content -->
+      </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal edit -->
+    @endforeach
+
+<!-- Modal Filter -->
+<div class="modal fade" id="modal-filter">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Tambah Data</h4>
+          <h4 class="modal-title">Filter Data</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form method="post" id="_formData" class="form-horizontal">
-          @csrf
-          <div class="modal-body">
-              <!-- <div class="card-body"> -->
-                <input type="hidden" name="fk_kategori_soal_add" value="">
-                <!-- <div class="form-group">
-                  <label>Tingkat Kesulitan<span class="bintang">*</span></label>
-                  <br>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="1" checked>
-                    <label class="form-check-label">Easy</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="2">
-                    <label class="form-check-label">Medium</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="3">
-                    <label class="form-check-label">Hard</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="4">
-                    <label class="form-check-label">Very Hard</label>
-                  </div>
-                  <br>
-                </div> -->
-                <div class="form-group">
-                  <label for="soal_add">Soal<span class="bintang">*</span></label>
-                  <textarea name="soal_add" id="soal_add" rows="10" class="form-control content_" placeholder="Soal"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="a_add">Pilihan A<span class="bintang">*</span></label>
-                    <textarea name="a_add" id="a_add" rows="2" class="form-control content_" placeholder="Pilihan A"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_a_add">Point Pilihan A<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_a_add" name="point_a_add" placeholder="Point Pilihan A">
-                </div>
-                <div class="form-group">
-                    <label for="b_add">Pilihan B<span class="bintang">*</span></label>
-                    <textarea name="b_add" id="b_add" rows="2" class="form-control content_" placeholder="Pilihan B"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_b_add">Point Pilihan B<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_b_add" name="point_b_add" placeholder="Point Pilihan B">
-                </div>
-                <div class="form-group">
-                    <label for="c_add">Pilihan C<span class="bintang">*</span></label>
-                    <textarea name="c_add" id="c_add" rows="2" class="form-control content_" placeholder="Pilihan C"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_c_add">Point Pilihan C<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_c_add" name="point_c_add" placeholder="Point Pilihan C">
-                </div>
-                <div class="form-group">
-                    <label for="d_add">Pilihan D<span class="bintang">*</span></label>
-                    <textarea name="d_add" id="d_add" rows="2" class="form-control content_" placeholder="Pilihan D"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_d_add">Point Pilihan D<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_d_add" name="point_d_add" placeholder="Point Pilihan D">
-                </div>
-                <div class="form-group">
-                    <label for="e_add">Pilihan E<span class="bintang">*</span></label>
-                    <textarea name="e_add" id="e_add" rows="2" class="form-control content_" placeholder="Pilihan E"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_e_add">Point Pilihan E<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_e_add" name="point_e_add" placeholder="Point Pilihan E">
-                </div>
-               
-                <div class="form-group">
-                      <label for="jawaban_add">Jawaban<span class="bintang">*</span></label>
-                      <select class="form-control" id="jawaban_add" name="jawaban_add">
-                          @foreach(pilihan() as $key)
-                          <option value="{{$key[0]}}">{{$key[1]}}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                <div class="form-group">
-                  <label for="pembahasan_add">Pembahasan<span class="bintang">*</span></label>
-                  <textarea name="pembahasan_add" id="pembahasan_add" rows="5" class="form-control content_" placeholder="Pembahasan"></textarea>  
-                </div>
-              <!-- <div class="card-body"> -->
-              <!-- /.form-group -->
-            <!-- </div> -->
+        <form id="form-filter" action="{{url('datalhp')}}" method="get">
+        <div class="modal-body">
+          <!-- Filter -->
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_file_status">FILE STATUS</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_file_status" name="f_file_status" placeholder="Filter Data" value="{{app('request')->input('f_file_status')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_nama">NAMA AUDITAN/OPD/DESA</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_nama" name="f_nama" placeholder="Filter Data" value="{{app('request')->input('f_nama')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_tahun">TAHUN ANGGARAN</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_tahun" name="f_tahun" placeholder="Filter Data" value="{{app('request')->input('f_tahun')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_kelompok_temuan">KELOMPOK TEMUAN</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_kelompok_temuan" name="f_kelompok_temuan" placeholder="Filter Data" value="{{app('request')->input('f_kelompok_temuan')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_jenis_audit">JENIS AUDIT</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_jenis_audit" name="f_jenis_audit" placeholder="Filter Data" value="{{app('request')->input('f_jenis_audit')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_ketua_tim">KETUA TIM</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_ketua_tim" name="f_ketua_tim" placeholder="Filter Data" value="{{app('request')->input('f_ketua_tim')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_no_lhp">NO LHP</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_no_lhp" name="f_no_lhp" placeholder="NO LHP" value="{{app('request')->input('f_no_lhp')}}">
+              </div>
+            </div>
           </div>
-          <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-              <label class="ket-bintang">Bertanda <span class="bintang">*</span> Wajib diisi</label>
-              <button type="submit" class="btn btn-danger">Simpan</button>
+          <div class="modal-footer">
+            <div class="_align_right">
+              <div class="btn-group">
+                <a href="{{url('datalhp')}}" class="mx-3 btn btn-md btn-danger"><i class="fas fa-times"></i> Reset Filter</a>
+                <button class="btn btn-md btn-success" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
+              </div>
+              
+            </div>
           </div>
-        </form>
+          </form>
       </div>
       <!-- /.modal-content -->
     </div>
@@ -270,7 +355,7 @@
           <div class="modal-body">
               <!-- <div class="card-body"> -->
               <div class="form-group">
-                <label>Download Template Excel <a href="{{asset('document/TemplateLhp.xlsx')}}">disini</a></label>
+                <label>Download Template Excel <a href="{{asset('document/LHP.xlsx')}}">disini</a></label>
               </div>
               <!-- <input type="hidden" name="idkategori" value=""> -->
               <div class="form-group row">
@@ -446,9 +531,11 @@
       }
     });
 
-    $(".int").on('input paste', function () {
-      hanyaAngkaAndMinus(this);
+    $(".dec").on('keyup input paste', function () {
+      // value = inputRupiah($(this).val());
+      $(this).val(inputRupiah($(this).val(),''));
     });
+   
 
     // bsCustomFileInput.init();
     datatablemastersoalpil("tabledata");
@@ -606,90 +693,18 @@
     
 
     // Fungsi Ubah Data
-    $(document).on('click', '.btn-submit-data', function (e) {
+    $(document).on('click', '.btn-ubah-data', function (e) {
         idform = $(this).attr('idform');
         $('#formData_'+idform).validate({
           ignore: ".ignore",
           rules: {
             'soal[]': {
               required: true
-            },
-            'a[]': {
-              required: true
-            },
-            'b[]': {
-              required: true
-            },
-            'c[]': {
-              required: true
-            },
-            'd[]': {
-              required: true
-            },
-            'e[]': {
-              required: true
-            },
-            'point_a[]': {
-              required: true
-            },
-            'point_b[]': {
-              required: true
-            },
-            'point_c[]': {
-              required: true
-            },
-            'point_d[]': {
-              required: true
-            },
-            'point_e[]': {
-              required: true
-            },
-            'jawaban[]': {
-              required: true
-            },
-            'pembahasan[]': {
-              required: true
             }
           },
           messages: {
             'soal[]': {
               required: "Soal tidak boleh kosong"
-            },
-            'a[]': {
-              required: "Pilihan A tidak boleh kosong"
-            },
-            'b[]': {
-              required: "Pilihan B tidak boleh kosong"
-            },
-            'c[]': {
-              required: "Pilihan C tidak boleh kosong"
-            },
-            'd[]': {
-              required: "Pilihan D tidak boleh kosong"
-            },
-            'e[]': {
-              required: "Pilihan E tidak boleh kosong"
-            },
-            'point_a[]': {
-              required: "Point Pilihan A tidak boleh kosong"
-            },
-            'point_b[]': {
-              required: "Point Pilihan B tidak boleh kosong"
-            },
-            'point_c[]': {
-              required: "Point Pilihan C tidak boleh kosong"
-            },
-            'point_d[]': {
-              required: "Point Pilihan D tidak boleh kosong"
-            },
-            'point_e[]': {
-              required: "Point Pilihan E tidak boleh kosong"
-            },
-            'jawaban[]': {
-              required: "Jawaban tidak boleh kosong"
-            },
-            'pembahasan[]': {
-              required: "Pembahasan tidak boleh kosong"
             }
           },
           errorElement: 'span',
@@ -713,7 +728,7 @@
           
             var formData = new FormData($('#formData_'+idform)[0]);
 
-            var url = "{{ url('/updatemastersoal') }}/"+idform;
+            var url = "{{ url('/updatelhp') }}";
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

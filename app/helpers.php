@@ -10,11 +10,16 @@ function formatCoret($nilai){
 	}
     return "Rp".number_format($total, 0, ',', '.');    
 }
+function rupiahToDb($value){
+	$value = str_replace("Rp. ","",$value);
+	$value = str_replace(",","",$value);
+    return $value;   
+}
 function formatRupiah($nilai){
-    return "Rp".number_format($nilai, 0, ',', '.');    
+    return "".number_format($nilai, 2, '.', ',');    
 }
 function formatRibuan($nilai){
-    return number_format($nilai, 0, ',', '.');    
+    return number_format($nilai, 2, '.', ',');    
 }
 function formatRupiahCekGratis($nilai){
     if($nilai==0){
@@ -141,7 +146,7 @@ function tglIndoSingkat($tanggal){
 
 function waktuIndo($tanggal){
     $tanggalfix = date('Y-m-d', strtotime($tanggal));
-    $time = date('H:i', strtotime($tanggal));
+    $time = date('H:i:s', strtotime($tanggal));
 	$bulan = array (
 		1 =>   'Januari',
 		'Februari',

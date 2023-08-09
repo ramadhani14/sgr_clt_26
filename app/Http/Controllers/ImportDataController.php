@@ -9,6 +9,7 @@ use App\Models\MasterTableP2hp;
 use App\Models\MasterTablePengaduan;
 use App\Imports\ImportLhp;
 use App\Imports\ImportP2hp;
+use App\Imports\ImportPengaduan;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Auth;
@@ -21,11 +22,21 @@ class ImportDataController extends Controller
         $this->middleware('auth');
     }
 
-    public function indexlhp()
+    public function indexlhp(Request $request)
     {
         $menu = 'master';
         $submenu='datalhp';
-        $data = MasterTableLhp::all();
+
+        $data = MasterTableLhp::where('id','<>','~');
+            
+        if($request->f_file_status){
+            $data->where('file_status','LIKE','%'.$request->f_file_status.'%');
+        }
+        if($request->f_nama){
+            $data->where( 'nama', 'LIKE', '%'.$request->f_nama.'%');
+        }
+        $data = $data->get();
+
         $data_param = [
             'menu','submenu','data'
         ];
@@ -35,7 +46,7 @@ class ImportDataController extends Controller
     public function indexp2hp()
     {
         $menu = 'master';
-        $submenu='datalhp';
+        $submenu='datap2hp';
         $data = MasterTableP2hp::all();
         $data_param = [
             'menu','submenu','data'
@@ -45,8 +56,8 @@ class ImportDataController extends Controller
     public function indexpengaduan()
     {
         $menu = 'master';
-        $submenu='datalhp';
-        $data = MasterTablePengaduan::orderBy('tanggal_laporan','desc')->get();
+        $submenu='datapengaduan';
+        $data = MasterTablePengaduan::all();
         $data_param = [
             'menu','submenu','data'
         ];
@@ -111,36 +122,40 @@ class ImportDataController extends Controller
         return view('master/editsoal')->with(compact($data_param));
     }
 
-    public function update(Request $request, $id)
+    public function updatelhp(Request $request)
     {
-        $data['soal'] = $request->soal[0];
-        // $data['tingkat'] = $request->tingkat_edit;
-        $data['a'] = $request->a[0];
-        $data['b'] = $request->b[0];
-        $data['c'] = $request->c[0];
-        $data['d'] = $request->d[0];
-        $data['e'] = $request->e[0];
-        $data['point_a'] = $request->point_a[0];
-        $data['point_b'] = $request->point_b[0];
-        $data['point_c'] = $request->point_c[0];
-        $data['point_d'] = $request->point_d[0];
-        $data['point_e'] = $request->point_e[0];
-        
-        $data['jawaban'] = $request->jawaban[0];
-        $data['pembahasan'] = $request->pembahasan[0];
-
-        // if ($data['soal']=='' || $data['a']=='' || $data['b']=='' || $data['c']=='' || $data['d']=='' || $data['e']=='' || $data['jawaban']=='' || $data['pembahasan']=='') {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Semua kolom harus diisi!'
-        //     ]);
-        //     exit();
-        // }
-        
+        $id = $request->iddata[0];
+        $data['catatan'] = $request->catatan[0];
+        $data['no_sktjm'] = $request->no_sktjm[0];
+        $data['update_tl'] = rupiahToDb($request->update_tl[0]);
+        $data['sisa_temuan'] = rupiahToDb($request->sisa_temuan[0]);
+        $data['ket'] = $request->ket[0];
         $data['updated_by'] = Auth::id();
         $data['updated_at'] = Carbon::now()->toDateTimeString();
 
-        $updatedata = MasterSoal::find($id)->update($data);
+        $updatedata = MasterTableLhp::find($id)->update($data);
+
+        if($updatedata){
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil diubah'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal. Mohon coba kembali!'
+            ]);
+        }
+    }
+
+    public function updatep2hp(Request $request)
+    {
+        $id = $request->iddata[0];
+        $data['ket'] = $request->ket[0];
+        $data['updated_by'] = Auth::id();
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
+
+        $updatedata = MasterTableP2hp::find($id)->update($data);
 
         if($updatedata){
             return response()->json([
@@ -210,10 +225,43 @@ class ImportDataController extends Controller
         ]);
     }
 
+    public function importpengaduan(Request $request)
+    {
+        if ($files = $request->file("fileexcel")) {
+            $namafile = $files->getClientOriginalName();
+        }
+
+        $kode = time();
+        // $kode = 1686825210;
+        
+        $data = [
+            'nama_file' => $namafile, 
+            'kode'    => $kode
+        ]; 
+        
+        Excel::import(new ImportPengaduan($data), request()->file('fileexcel'));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil diimport'
+        ]);
+    }
+
     public function destroylhpall(Request $request)
     {
         foreach($request->iddata as $key){
             MasterTableLhp::find($key)->forceDelete();
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'Data berhasil dihapus'
+        ]);
+    }
+
+    public function destroypengaduanall(Request $request)
+    {
+        foreach($request->iddata as $key){
+            MasterTablePengaduan::find($key)->forceDelete();
         }
         return response()->json([
             'status' => true,

@@ -153,13 +153,46 @@ function hanyaAngkaAndBesar(idorclass){
     $(idorclass).val($(idorclass).val().replace(/[^0-9A-Z]/g, ''));
 }
 
+function inputRupiah(value,prefix){
+
+    var number_string = value.replace("Rp. ", ""),
+    number_string = number_string.replace(/[^.\d]/g, "").toString(),
+    split  = number_string.split("."),
+    sisa   = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+ 
+	if (ribuan) {
+		separator = sisa ? "," : "";
+		rupiah += separator + ribuan.join(",");
+	}
+ 
+	rupiah = split[1] != undefined ? rupiah + "." + split[1] : rupiah;
+	return prefix == undefined ? rupiah : rupiah ? prefix + rupiah : "";
+
+    // var 	number_string = value.replace(/[^,\d]/g, '').toString(),
+    // split	= number_string.split(','),
+    // sisa 	= split[0].length % 3,
+    // rupiah 	= split[0].substr(0, sisa),
+    // ribuan 	= split[0].substr(sisa).match(/\d{1,3}/gi);
+    
+    // if (ribuan) {
+    //     separator = sisa ? '.' : '';
+    //     rupiah += separator + ribuan.join('.');
+    // }
+    
+    // rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    // // rupiah = 'Rp. ' + rupiah;
+    // return rupiah;
+}
+
 function hanyaDecimal(idorclass){
-    $(idorclass).on('input paste', function () {
-        val = $(this).val();
-        if(val==""){
-            $(this).val(0);        
-        }
-    });
+    // $(idorclass).on('input paste', function () {
+    //     val = $(this).val();
+    //     if(val==""){
+    //         $(this).val(0);        
+    //     }
+    // });
 
     $(idorclass).keypress(function (event) {
         var $this = $(this);

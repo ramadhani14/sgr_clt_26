@@ -1,41 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-@include('layouts.header')
-<body>
-  
-<div class="container-fluid">
+@extends('layouts.Adminlte3')
 
-  <div class="row" style="align-items:center">
-    <div class="col-sm-6">
-      <div class="p-5">
-        <center><h1 class="mb-3" style="color:#28429f">Pencarian Data</h1></center>
-        <form method="get" action="{{url('caridata')}}" id="formData" class="form-horizontal">
-            @csrf
-            <h5 for="">Keyword Utama</h5>
-            <input type="text" class="mb-4 form-control form-control-lg" placeholder="Keyword Utama" name="keyword" required>
-            <h5 for="">Keyword Kolom</h5>
-            <input type="text" class="mb-4 form-control form-control-lg" placeholder="Keyword Kolom" name="kolom">
-            <h5 for="">Keyword Row</h5>
-            <input type="text" class="mb-4 form-control form-control-lg" placeholder="Keyword Row" name="row">
-            <button type="submit" style="width:100%" class="mt-3 btn btn-primary btn-lg btn-block">Cari</button>
-         </form>  
-        
-    </div>
-    <!-- <p>The columns will automatically stack on top of each other when the screen is less than 576px wide.</p> -->
-    </div>
-    <div class="col-sm-6"><img src="{{ asset('image/global/cari.png') }}" alt="" width="100%"></div>
-  </div>
-</div>
+@section('header')
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="{{ asset('layout/adminlte3/plugins/fontawesome-free/css/all.min.css') }}">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{{ asset('layout/adminlte3/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+<!-- Theme style -->
+<link rel="stylesheet" href="{{ asset('layout/adminlte3/dist/css/adminlte.min.css') }}">
+@endsection
 
-@include('layouts.footer')
+@section('contentheader')
+<h1 class="m-0">Home</h1>
+@endsection
 
+@section('contentheadermenu')
+<ol class="breadcrumb float-sm-right">
+    <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
+    <li class="breadcrumb-item active">{{Auth::user()->user_level==1 ? "Super Admin" : "Admin"}}</li>
+</ol>
+@endsection
+
+@section('content')
+    <!-- Main content -->
+    <section class="content home">
+      <div class="container-fluid">
+        <center><h2>Selamat Datang</h2></center>
+          <div class="row">
+            <div class="col-lg-3 col-6">
+
+            </div>
+          </div>
+      </div>
+      <!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+@endsection
+
+@section('footer')
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="{{ asset('layout/adminlte3/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap -->
+<script src="{{ asset('layout/adminlte3/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ asset('layout/adminlte3/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('layout/adminlte3/dist/js/adminlte.js') }}"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="{{ asset('layout/adminlte3/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
+<script src="{{ asset('layout/adminlte3/plugins/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('layout/adminlte3/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
+<script src="{{ asset('layout/adminlte3/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset('layout/adminlte3/plugins/chart.js/Chart.min.js') }}"></script>
+
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('layout/adminlte3/dist/js/demo.js') }}"></script>
 <script>
   $(document).ready(function(){
-    $('.kolom').select2({
-      placeholder: "Pilih Kolom"
+    $('.absensi').on('show.bs.tab', function (e) { 
+      $.LoadingOverlay("show");	
+      $('html, body').animate({
+          scrollTop: $(".absensi_content").offset().top
+      }, 1000);
+      $.LoadingOverlay("hide");
     });
   });
-  </script>
-
-</body>
-</html>
+</script>
+@endsection

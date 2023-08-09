@@ -52,13 +52,13 @@
                   <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Masukkan Password">
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
+                  <!-- <div class="form-check">
                     <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input">
                       Ingat Saya
                     </label>
                   </div>
-                  <a href="{{url('lupapassword')}}" class="auth-link text-black">Lupa password?</a>
+                  <a href="{{url('lupapassword')}}" class="auth-link text-black">Lupa password?</a> -->
                 </div>
                 <div class="mt-3">
                   <button type="submit" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">Masuk</button>
