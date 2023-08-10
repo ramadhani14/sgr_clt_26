@@ -10,6 +10,9 @@ use App\Models\MasterTablePengaduan;
 use App\Imports\ImportLhp;
 use App\Imports\ImportP2hp;
 use App\Imports\ImportPengaduan;
+use App\Exports\LhpExport;
+use App\Exports\P2hpExport;
+use App\Exports\PengaduanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Auth;
@@ -66,6 +69,21 @@ class ImportDataController extends Controller
         return view('master/datalhp')->with(compact($data_param));
     }
 
+    public function downloadlhp(Request $request)
+    {
+        $data = [
+            'f_file_status' => $request->f_file_status ?: null, 
+            'f_nama'    => $request->f_nama ?: null,
+            'f_tahun'    => $request->f_tahun ?: null,
+            'f_kelompok_temuan'    => $request->f_kelompok_temuan ?: null,
+            'f_jenis_audit'    => $request->f_jenis_audit ?: null,
+            'f_ketua_tim'    => $request->f_ketua_tim ?: null,
+            'f_no_lhp'    => $request->f_no_lhp ?: null,
+        ];
+       
+        return Excel::download(new LhpExport($data), 'Data_LHP.xlsx');
+    }
+
     public function indexp2hp(Request $request)
     {
         $menu = 'master';
@@ -110,6 +128,21 @@ class ImportDataController extends Controller
         ];
         return view('master/datap2hp')->with(compact($data_param));
     }
+
+    public function downloadp2hp(Request $request)
+    {
+        $data = [
+            'f_file_status' => $request->f_file_status ?: null, 
+            'f_nama'    => $request->f_nama ?: null,
+            'f_tahun'    => $request->f_tahun ?: null,
+            'f_kelompok_temuan'    => $request->f_kelompok_temuan ?: null,
+            'f_nama_pj'    => $request->f_nama_pj ?: null,
+            'f_jenis_audit'    => $request->f_jenis_audit ?: null,
+            'f_ketua_tim'    => $request->f_ketua_tim ?: null,
+        ];
+       
+        return Excel::download(new P2hpExport($data), 'Data_P2HP.xlsx');
+    }
     public function indexpengaduan(Request $request)
     {
         $menu = 'master';
@@ -138,6 +171,17 @@ class ImportDataController extends Controller
             'menu','submenu','data','filter'
         ];
         return view('master/datapengaduan')->with(compact($data_param));
+    }
+
+    public function downloadpengaduan(Request $request)
+    {
+        $data = [
+            'f_file_status' => $request->f_file_status ?: null, 
+            'f_nama_pelapor'    => $request->f_nama_pelapor ?: null,
+            'f_status'    => $request->f_status ?: null
+        ];
+       
+        return Excel::download(new PengaduanExport($data), 'Data_Pengaduan.xlsx');
     }
 
     public function store(Request $request)

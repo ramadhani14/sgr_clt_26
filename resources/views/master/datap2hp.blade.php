@@ -45,6 +45,20 @@
                   </a>
                 </span>
                 @endif
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Download Data">
+                  <form id="form-filter" action="{{url('downloadp2hp')}}" method="get">
+                    <input type="hidden" class="form-control" name="f_file_status" value="{{app('request')->input('f_file_status')}}">
+                    <input type="hidden" class="form-control" name="f_nama" value="{{app('request')->input('f_nama')}}">
+                    <input type="hidden" class="form-control" name="f_tahun" value="{{app('request')->input('f_tahun')}}">
+                    <input type="hidden" class="form-control" name="f_kelompok_temuan" value="{{app('request')->input('f_kelompok_temuan')}}">
+                    <input type="hidden" class="form-control" name="f_nama_pj" value="{{app('request')->input('f_nama_pj')}}">
+                    <input type="hidden" class="form-control" name="f_jenis_audit" value="{{app('request')->input('f_jenis_audit')}}">
+                    <input type="hidden" class="form-control" name="f_ketua_tim" value="{{app('request')->input('f_ketua_tim')}}">
+                    <button type="submit" class="btn btn-md btn-success">
+                        <i class="fas fa-download"></i>
+                    </button>
+                  </form>
+                </span>
                 <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Import Data">
                   <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-md btn-success">
                       <i class="fas fa-file-excel"></i>
@@ -176,6 +190,16 @@
             <!-- /.card -->
           </div>
           <!-- /.col -->
+
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h5><b>SUM</b></h5>
+                <h6>Nilai Temuan : <b>{{formatRupiah($data->sum('nilai_temuan'))}}</b></h6>
+              </div>
+            </div>
+          </div>
+
         </div>
         <!-- /.row -->
       </div>
@@ -293,7 +317,7 @@
           <div class="modal-footer">
             <div class="_align_right">
               <div class="btn-group">
-                <button class="btn btn-md btn-success" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
+                <button class="btn btn-md btn-primary" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
               </div>
               
             </div>

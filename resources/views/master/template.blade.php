@@ -187,6 +187,16 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label for="banner">Banner <span class="input-keterangan">(jpg/jpeg/png)</span></label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input input-foto" idlabel="label-banner-{{$key->id}}" name="banner[]" id="banner-{{$key->id}}">
+                      <label id="label-banner-{{$key->id}}" class="custom-file-label" for="banner">Pilih File</label>
+                    </div>
+                  </div>
+                </div>
                            
                 <!-- /.form-group -->
               <!-- </div> -->

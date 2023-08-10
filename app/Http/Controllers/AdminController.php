@@ -84,6 +84,18 @@ class AdminController extends Controller
             }
         }
 
+        if($request->file("banner")){
+            if ($files = $request->file("banner")[0]) {
+                $dataOld = Template::find($id);
+                File::delete($dataOld->banner);
+                $destinationPath = 'image/upload/logo/';
+                $file = 'Banner_'.Carbon::now()->timestamp. "." .$files->getClientOriginalExtension();
+                $files->move($destinationPath, $file);
+                $namafile = $destinationPath.$file;
+                $data['banner'] = $destinationPath.$file;
+            }
+        }
+
         $data['updated_by'] = Auth::id();
         $data['updated_at'] = Carbon::now()->toDateTimeString();
         $updatedata = Template::find($id)->update($data);

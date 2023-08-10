@@ -27,6 +27,7 @@ class CreateTemplate extends Migration
             $table->longText('copyright')->nullable();
             $table->mediumText('logo_besar')->nullable();
             $table->mediumText('logo_kecil')->nullable();
+            $table->mediumText('banner')->nullable();
             $table->integer('created_by');
             $table->datetime('created_at');
             $table->integer('updated_by')->nullable();

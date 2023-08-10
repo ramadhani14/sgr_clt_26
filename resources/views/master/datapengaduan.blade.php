@@ -45,6 +45,16 @@
                   </a>
                 </span>
                 @endif
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Download Data">
+                  <form id="form-filter" action="{{url('downloadpengaduan')}}" method="get">
+                    <input type="hidden" class="form-control" name="f_file_status" value="{{app('request')->input('f_file_status')}}">
+                    <input type="hidden" class="form-control" name="f_nama_pelapor" value="{{app('request')->input('f_nama_pelapor')}}">
+                    <input type="hidden" class="form-control" name="f_status" value="{{app('request')->input('f_status')}}">
+                    <button type="submit" class="btn btn-md btn-success">
+                        <i class="fas fa-download"></i>
+                    </button>
+                  </form>
+                </span>
                 <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Import Data">
                   <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-md btn-success">
                       <i class="fas fa-file-excel"></i>
@@ -184,7 +194,7 @@
           <div class="modal-footer">
             <div class="_align_right">
               <div class="btn-group">
-                <button class="btn btn-md btn-success" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
+                <button class="btn btn-md btn-primary" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
               </div>
               
             </div>

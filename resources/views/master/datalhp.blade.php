@@ -46,6 +46,20 @@
                   </a>
                 </span>
                 @endif
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Download Data">
+                  <form id="form-filter" action="{{url('downloadlhp')}}" method="get">
+                    <input type="hidden" class="form-control" name="f_file_status" value="{{app('request')->input('f_file_status')}}">
+                    <input type="hidden" class="form-control" name="f_nama" value="{{app('request')->input('f_nama')}}">
+                    <input type="hidden" class="form-control" name="f_tahun" value="{{app('request')->input('f_tahun')}}">
+                    <input type="hidden" class="form-control" name="f_kelompok_temuan" value="{{app('request')->input('f_kelompok_temuan')}}">
+                    <input type="hidden" class="form-control" name="f_jenis_audit" value="{{app('request')->input('f_jenis_audit')}}">
+                    <input type="hidden" class="form-control" name="f_ketua_tim" value="{{app('request')->input('f_ketua_tim')}}">
+                    <input type="hidden" class="form-control" name="f_no_lhp" value="{{app('request')->input('f_no_lhp')}}">
+                    <button type="submit" class="btn btn-md btn-success">
+                        <i class="fas fa-download"></i>
+                    </button>
+                  </form>
+                </span>
                 <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Import Data">
                   <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-md btn-success">
                       <i class="fas fa-file-excel"></i>
@@ -193,6 +207,17 @@
             <!-- /.card -->
           </div>
           <!-- /.col -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h5><b>SUM</b></h5>
+                <h6>Nilai Temuan : <b>{{formatRupiah($data->sum('nilai_temuan'))}}</b></h6>
+                <h6>Sisa Temuan : <b>{{formatRupiah($data->sum('sisa_temuan'))}}</b></h6>
+              </div>
+            </div>
+          </div>
+
+
         </div>
         <!-- /.row -->
       </div>
@@ -279,7 +304,7 @@
                 <label for="f_file_status">FILE STATUS</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_file_status" name="f_file_status" placeholder="Filter Data" value="{{app('request')->input('f_file_status')}}">
+                <input type="text" class="form-control" name="f_file_status" placeholder="Filter Data" value="{{app('request')->input('f_file_status')}}">
               </div>
             </div>
             <div class="row">
@@ -287,7 +312,7 @@
                 <label for="f_nama">NAMA AUDITAN/OPD/DESA</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_nama" name="f_nama" placeholder="Filter Data" value="{{app('request')->input('f_nama')}}">
+                <input type="text" class="form-control" name="f_nama" placeholder="Filter Data" value="{{app('request')->input('f_nama')}}">
               </div>
             </div>
             <div class="row">
@@ -295,7 +320,7 @@
                 <label for="f_tahun">TAHUN ANGGARAN</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_tahun" name="f_tahun" placeholder="Filter Data" value="{{app('request')->input('f_tahun')}}">
+                <input type="text" class="form-control" name="f_tahun" placeholder="Filter Data" value="{{app('request')->input('f_tahun')}}">
               </div>
             </div>
             <div class="row">
@@ -303,7 +328,7 @@
                 <label for="f_kelompok_temuan">KELOMPOK TEMUAN</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_kelompok_temuan" name="f_kelompok_temuan" placeholder="Filter Data" value="{{app('request')->input('f_kelompok_temuan')}}">
+                <input type="text" class="form-control" name="f_kelompok_temuan" placeholder="Filter Data" value="{{app('request')->input('f_kelompok_temuan')}}">
               </div>
             </div>
             <div class="row">
@@ -311,7 +336,7 @@
                 <label for="f_jenis_audit">JENIS AUDIT</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_jenis_audit" name="f_jenis_audit" placeholder="Filter Data" value="{{app('request')->input('f_jenis_audit')}}">
+                <input type="text" class="form-control" name="f_jenis_audit" placeholder="Filter Data" value="{{app('request')->input('f_jenis_audit')}}">
               </div>
             </div>
             <div class="row">
@@ -319,7 +344,7 @@
                 <label for="f_ketua_tim">KETUA TIM</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_ketua_tim" name="f_ketua_tim" placeholder="Filter Data" value="{{app('request')->input('f_ketua_tim')}}">
+                <input type="text" class="form-control" name="f_ketua_tim" placeholder="Filter Data" value="{{app('request')->input('f_ketua_tim')}}">
               </div>
             </div>
             <div class="row">
@@ -327,14 +352,14 @@
                 <label for="f_no_lhp">NO LHP</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_no_lhp" name="f_no_lhp" placeholder="Filter Data" value="{{app('request')->input('f_no_lhp')}}">
+                <input type="text" class="form-control" name="f_no_lhp" placeholder="Filter Data" value="{{app('request')->input('f_no_lhp')}}">
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <div class="_align_right">
               <div class="btn-group">
-                <button class="btn btn-md btn-success" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
+                <button class="btn btn-md btn-primary" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
               </div>
               
             </div>
