@@ -381,7 +381,7 @@ p.demos {
 </div>
 
 <script>
-reload_url(1500,'{{url("login")}}');
+reload_url(0,'{{url("login")}}');
 </script>
 </body>
 </html>

@@ -33,18 +33,25 @@
             <div class="card">
               <div class="card-body">
               <div class="btn-group">
-                <!-- <span data-toggle="tooltip" data-placement="left" title="Tambah Data">
-                  <button data-toggle="modal" data-target="#modal-tambah" type="button" class="btn btn-sm btn-primary btn-add-absolute btn-add-absolute-group">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                <span data-toggle="tooltip" data-placement="left" title="Filter Data">
+                  <button data-toggle="modal" data-target="#modal-filter" type="button" class="btn btn-md btn-info">
+                    <i class="fas fa-filter" aria-hidden="true"></i>
                   </button>
-                </span> -->
-                <span data-toggle="tooltip" data-placement="left" title="Import Data">
-                  <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-sm btn-success btn-add-absolute btn-add-absolute-group">
+                </span>
+                @if($filter)
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Reset Filter">
+                  <a href="{{url('datapengaduan')}}" class="btn btn-md btn-warning">
+                      <i class="fas fa-times"></i>
+                  </a>
+                </span>
+                @endif
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Import Data">
+                  <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-md btn-success">
                       <i class="fas fa-file-excel"></i>
                   </button>
                 </span>
-                <span style="margin-left:35px" data-toggle="tooltip" data-placement="left" title="Hapus Data">
-                  <button type="button" class="btn-delete-all btn btn-sm btn-danger btn-add-absolute btn-add-absolute-group">
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Hapus Data">
+                  <button type="button" class="btn-delete-all btn btn-md btn-danger">
                       <i class="fas fa-trash"></i>
                   </button>
                 </span>
@@ -54,7 +61,7 @@
                 <table id="tabledata" class="table  table-bordered">
                   <thead>
                   <tr>
-                  <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> SEMUA</th>
+                  <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> CEKLIS</th>
                     <!-- <th>UBAH</th> -->
                     <!-- <th>NO</th> -->
                     <th>NAMA FILE</th>
@@ -136,116 +143,59 @@
     </section>
     <!-- /.content -->
 
-
-<!-- Modal Tambah -->
-<div class="modal fade" id="modal-tambah">
+    <!-- Modal Filter -->
+<div class="modal fade" id="modal-filter">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Tambah Data</h4>
+          <h4 class="modal-title">Filter Data</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form method="post" id="_formData" class="form-horizontal">
-          @csrf
-          <div class="modal-body">
-              <!-- <div class="card-body"> -->
-                <input type="hidden" name="fk_kategori_soal_add" value="">
-                <!-- <div class="form-group">
-                  <label>Tingkat Kesulitan<span class="bintang">*</span></label>
-                  <br>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="1" checked>
-                    <label class="form-check-label">Easy</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="2">
-                    <label class="form-check-label">Medium</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="3">
-                    <label class="form-check-label">Hard</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tingkat_add" value="4">
-                    <label class="form-check-label">Very Hard</label>
-                  </div>
-                  <br>
-                </div> -->
-                <div class="form-group">
-                  <label for="soal_add">Soal<span class="bintang">*</span></label>
-                  <textarea name="soal_add" id="soal_add" rows="10" class="form-control content_" placeholder="Soal"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="a_add">Pilihan A<span class="bintang">*</span></label>
-                    <textarea name="a_add" id="a_add" rows="2" class="form-control content_" placeholder="Pilihan A"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_a_add">Point Pilihan A<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_a_add" name="point_a_add" placeholder="Point Pilihan A">
-                </div>
-                <div class="form-group">
-                    <label for="b_add">Pilihan B<span class="bintang">*</span></label>
-                    <textarea name="b_add" id="b_add" rows="2" class="form-control content_" placeholder="Pilihan B"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_b_add">Point Pilihan B<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_b_add" name="point_b_add" placeholder="Point Pilihan B">
-                </div>
-                <div class="form-group">
-                    <label for="c_add">Pilihan C<span class="bintang">*</span></label>
-                    <textarea name="c_add" id="c_add" rows="2" class="form-control content_" placeholder="Pilihan C"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_c_add">Point Pilihan C<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_c_add" name="point_c_add" placeholder="Point Pilihan C">
-                </div>
-                <div class="form-group">
-                    <label for="d_add">Pilihan D<span class="bintang">*</span></label>
-                    <textarea name="d_add" id="d_add" rows="2" class="form-control content_" placeholder="Pilihan D"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_d_add">Point Pilihan D<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_d_add" name="point_d_add" placeholder="Point Pilihan D">
-                </div>
-                <div class="form-group">
-                    <label for="e_add">Pilihan E<span class="bintang">*</span></label>
-                    <textarea name="e_add" id="e_add" rows="2" class="form-control content_" placeholder="Pilihan E"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="point_e_add">Point Pilihan E<span class="bintang">*</span></label>
-                  <input value="0" type="number" class="form-control int" id="point_e_add" name="point_e_add" placeholder="Point Pilihan E">
-                </div>
-               
-                <div class="form-group">
-                      <label for="jawaban_add">Jawaban<span class="bintang">*</span></label>
-                      <select class="form-control" id="jawaban_add" name="jawaban_add">
-                          @foreach(pilihan() as $key)
-                          <option value="{{$key[0]}}">{{$key[1]}}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                <div class="form-group">
-                  <label for="pembahasan_add">Pembahasan<span class="bintang">*</span></label>
-                  <textarea name="pembahasan_add" id="pembahasan_add" rows="5" class="form-control content_" placeholder="Pembahasan"></textarea>  
-                </div>
-              <!-- <div class="card-body"> -->
-              <!-- /.form-group -->
-            <!-- </div> -->
+        <form id="form-filter" action="{{url('datapengaduan')}}" method="get">
+        <div class="modal-body">
+          <!-- Filter -->
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_file_status">FILE STATUS</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_file_status" name="f_file_status" placeholder="Filter Data" value="{{app('request')->input('f_file_status')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_nama_pelapor">NAMA PELAPOR</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_nama_pelapor" name="f_nama_pelapor" placeholder="Filter Data" value="{{app('request')->input('f_nama_pelapor')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_status">STATUS (SELESAI / PROSES / DITOLAK)</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" id="f_status" name="f_status" placeholder="Filter Data" value="{{app('request')->input('f_status')}}">
+              </div>
+            </div>
           </div>
-          <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-              <label class="ket-bintang">Bertanda <span class="bintang">*</span> Wajib diisi</label>
-              <button type="submit" class="btn btn-danger">Simpan</button>
+          <div class="modal-footer">
+            <div class="_align_right">
+              <div class="btn-group">
+                <button class="btn btn-md btn-success" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
+              </div>
+              
+            </div>
           </div>
-        </form>
+          </form>
       </div>
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal tambah -->
+<!-- /.modal filter -->
 
 <!-- Modal Import -->
 <div class="modal fade" id="modal-import">

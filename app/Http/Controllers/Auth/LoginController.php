@@ -58,7 +58,7 @@ class LoginController extends Controller
             if(auth()->attempt(array('username'=>$input['username'],'password'=>$input['password']))){
                 return response()->json([
                     'status' => true,
-                    'message' => 'Login berhasil!'
+                    'message' => 'Berhasil Login!'
                 ]);
             }else{
                 return response()->json([

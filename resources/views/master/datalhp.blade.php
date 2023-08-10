@@ -39,6 +39,13 @@
                     <i class="fas fa-filter" aria-hidden="true"></i>
                   </button>
                 </span>
+                @if($filter)
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Reset Filter">
+                  <a href="{{url('datalhp')}}" class="btn btn-md btn-warning">
+                      <i class="fas fa-times"></i>
+                  </a>
+                </span>
+                @endif
                 <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Import Data">
                   <button data-toggle="modal" data-target="#modal-import" type="button" class="btn btn-md btn-success">
                       <i class="fas fa-file-excel"></i>
@@ -55,7 +62,7 @@
                 <table id="tabledata" class="table  table-bordered">
                   <thead>
                   <tr>
-                    <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> SEMUA</th>
+                    <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> CEKLIS</th>
                     <th>UBAH</th>
                     <!-- <th>NO</th> -->
                     <th>NAMA FILE</th>
@@ -136,6 +143,7 @@
                     <td width="1%" class="_white_space _align_center">{{$key->u_by_r ? $key->u_by_r->name : ""}}</td>
                   </tr>
                   @endforeach
+                  @if(count($data)>0)
                   <tr>
                     <td></td>
                     <td></td>
@@ -146,7 +154,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="_white_space _align_center _bold">{{formatRupiah($data->sum('nilai_temuan'))}}</td>
+                    <td class="_white_space _align_right _bold">{{formatRupiah($data->sum('nilai_temuan'))}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -154,7 +162,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="_white_space _align_center _bold">{{formatRupiah($data->sum('sisa_temuan'))}}</td>
+                    <td class="_white_space _align_right _bold">{{formatRupiah($data->sum('sisa_temuan'))}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -166,7 +174,7 @@
                     <td></td>
                     <td></td>
                   </tr>
-               
+                  @endif
                   </tbody>
                   
                   <!-- <tfoot>
@@ -319,14 +327,13 @@
                 <label for="f_no_lhp">NO LHP</label>
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
-                <input type="text" class="form-control" id="f_no_lhp" name="f_no_lhp" placeholder="NO LHP" value="{{app('request')->input('f_no_lhp')}}">
+                <input type="text" class="form-control" id="f_no_lhp" name="f_no_lhp" placeholder="Filter Data" value="{{app('request')->input('f_no_lhp')}}">
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <div class="_align_right">
               <div class="btn-group">
-                <a href="{{url('datalhp')}}" class="mx-3 btn btn-md btn-danger"><i class="fas fa-times"></i> Reset Filter</a>
                 <button class="btn btn-md btn-success" type="submit"><i class="fas fa-filter" aria-hidden="true"></i> Filter Sekarang</button>
               </div>
               
@@ -338,7 +345,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal tambah -->
+<!-- /.modal filter -->
 
 <!-- Modal Import -->
 <div class="modal fade" id="modal-import">

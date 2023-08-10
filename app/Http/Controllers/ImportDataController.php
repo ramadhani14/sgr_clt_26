@@ -26,40 +26,116 @@ class ImportDataController extends Controller
     {
         $menu = 'master';
         $submenu='datalhp';
+        $filter = false;
 
         $data = MasterTableLhp::where('id','<>','~');
-            
+
         if($request->f_file_status){
             $data->where('file_status','LIKE','%'.$request->f_file_status.'%');
+            $filter = true;
         }
         if($request->f_nama){
             $data->where( 'nama', 'LIKE', '%'.$request->f_nama.'%');
+            $filter = true;
+        }
+        if($request->f_tahun){
+            $data->where( 'tahun', 'LIKE', '%'.$request->f_tahun.'%');
+            $filter = true;
+        }
+        if($request->f_kelompok_temuan){
+            $data->where( 'kelompok_temuan', 'LIKE', '%'.$request->f_kelompok_temuan.'%');
+            $filter = true;
+        }
+        if($request->f_jenis_audit){
+            $data->where( 'jenis_audit', 'LIKE', '%'.$request->f_jenis_audit.'%');
+            $filter = true;
+        }
+        if($request->f_ketua_tim){
+            $data->where( 'ketua_tim', 'LIKE', '%'.$request->f_ketua_tim.'%');
+            $filter = true;
+        }
+        if($request->f_no_lhp){
+            $data->where( 'no_lhp', 'LIKE', '%'.$request->f_no_lhp.'%');
+            $filter = true;
         }
         $data = $data->get();
 
         $data_param = [
-            'menu','submenu','data'
+            'menu','submenu','data','filter'
         ];
         return view('master/datalhp')->with(compact($data_param));
     }
 
-    public function indexp2hp()
+    public function indexp2hp(Request $request)
     {
         $menu = 'master';
         $submenu='datap2hp';
-        $data = MasterTableP2hp::all();
+        $filter = false;
+
+        $data = MasterTableP2hp::where('id','<>','~');
+            
+        if($request->f_file_status){
+            $data->where('file_status','LIKE','%'.$request->f_file_status.'%');
+            $filter = true;
+        }
+        if($request->f_nama){
+            $data->where( 'nama', 'LIKE', '%'.$request->f_nama.'%');
+            $filter = true;
+        }
+        if($request->f_tahun){
+            $data->where( 'tahun', 'LIKE', '%'.$request->f_tahun.'%');
+            $filter = true;
+        }
+        if($request->f_kelompok_temuan){
+            $data->where( 'kelompok_temuan', 'LIKE', '%'.$request->f_kelompok_temuan.'%');
+            $filter = true;
+        }
+        if($request->f_nama_pj){
+            $data->where( 'nama_pj', 'LIKE', '%'.$request->f_nama_pj.'%');
+            $filter = true;
+        }
+        if($request->f_jenis_audit){
+            $data->where( 'jenis_audit', 'LIKE', '%'.$request->f_jenis_audit.'%');
+            $filter = true;
+        }
+        if($request->f_ketua_tim){
+            $data->where( 'ketua_tim', 'LIKE', '%'.$request->f_ketua_tim.'%');
+            $filter = true;
+        }
+
+        $data = $data->get();
+        
         $data_param = [
-            'menu','submenu','data'
+            'menu','submenu','data','filter'
         ];
         return view('master/datap2hp')->with(compact($data_param));
     }
-    public function indexpengaduan()
+    public function indexpengaduan(Request $request)
     {
         $menu = 'master';
         $submenu='datapengaduan';
-        $data = MasterTablePengaduan::all();
+        $filter = false;
+
+        $data = MasterTablePengaduan::where('id','<>','~');
+            
+        if($request->f_file_status){
+            $data->where('file_status','LIKE','%'.$request->f_file_status.'%');
+            $filter = true;
+        }
+
+        if($request->f_nama_pelapor){
+            $data->where( 'nama_pelapor', 'LIKE', '%'.$request->f_nama_pelapor.'%');
+            $filter = true;
+        }
+        if($request->f_status){
+            $data->where( 'status', 'LIKE', '%'.$request->f_status.'%');
+            $filter = true;
+        }
+
+        $data = $data->get();
+
         $data_param = [
-            'menu','submenu','data'
+            'menu','submenu','data','filter'
         ];
         return view('master/datapengaduan')->with(compact($data_param));
     }
