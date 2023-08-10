@@ -27,7 +27,8 @@
 @section('content')
 <style>
     .mbc-3{
-      margin-bottom: -3.5rem;
+      /* margin-bottom: -3.5rem; */
+      /* z-index:9999; */
     }
     @media(max-width: 768px){
       .mbc-3{
