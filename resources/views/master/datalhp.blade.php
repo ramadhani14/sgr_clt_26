@@ -25,6 +25,20 @@
 @endsection
 
 @section('content')
+  <style>
+    .mbc-3{
+      margin-bottom: -3.5rem;
+    }
+    @media(max-width: 768px){
+      .mbc-3{
+        margin-bottom: 1rem;
+        /* text-align: center; */
+        justify-content: center;
+        /* align-items: center; */
+        display: flex;
+      } 
+    }
+  </style>
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -33,7 +47,7 @@
             <div class="card">
               <div class="card-body">
 
-              <div class="btn-group">
+              <div class="btn-group mbc-3">
                 <span data-toggle="tooltip" data-placement="left" title="Filter Data">
                   <button data-toggle="modal" data-target="#modal-filter" type="button" class="btn btn-md btn-info">
                     <i class="fas fa-filter" aria-hidden="true"></i>

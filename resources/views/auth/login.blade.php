@@ -79,7 +79,7 @@
             </div>
           </div>
           <div class="col-md-7 col-lg-7">
-              <img src="{{ $template->banner ? asset($template->banner) : asset('image/global/login.png') }}" alt="" width="100%">
+              <img class="mb-3" src="{{ $template->banner ? asset($template->banner) : asset('image/global/login.png') }}" alt="" width="100%">
           </div>
         </div>
       </div>
