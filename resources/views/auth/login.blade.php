@@ -33,7 +33,7 @@
               <a href="{{url('/')}}"><img src="{{asset($template->logo_kecil)}}" alt="logo"></a>
             </div> -->
             <center class="mt-5">
-              <h2 style="color:#4495fa;font-family: sans-serif;"><b>DATABASE AUDIT INSPEKTORAT TANA TIDUNG</b></h2>
+              <h2 class="text-success" style="font-family: sans-serif;"><b>{{$template->nama}}</b></h2>
             </center>
             <div class="text-left py-3 px-4 px-sm-5 mt-2 mb-5">
               @if($errors->any())
@@ -61,7 +61,7 @@
                   <a href="{{url('lupapassword')}}" class="auth-link text-black">Lupa password?</a> -->
                 </div>
                 <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">Masuk</button>
+                  <button type="submit" class="btn btn-block btn-success btn-sm font-weight-medium auth-form-btn">Masuk</button>
                   <!-- <a href="{{url('auth/google')}}" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn">LOOGIN GOOGLE</a> -->
                   <!-- <a href="{{url('auth/google')}}" type="button" class="btn btn-block btn-google auth-form-btn">
                     <i class="ti-google mr-2"></i>Masuk dengan Google
@@ -79,7 +79,7 @@
             </div>
           </div>
           <div class="col-md-7 col-lg-7">
-              <img src="{{ $template->banner ? asset($template->banner) : asset('image/global/login.jpg') }}" alt="" width="100%">
+              <img src="{{ $template->banner ? asset($template->banner) : asset('image/global/login.png') }}" alt="" width="100%">
           </div>
         </div>
       </div>

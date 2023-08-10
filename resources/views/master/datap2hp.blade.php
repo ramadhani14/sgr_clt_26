@@ -194,7 +194,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body">
-                <h5><b>SUM</b></h5>
+                <h5><b>JUMLAH</b></h5>
                 <h6>Nilai Temuan : <b>{{formatRupiah($data->sum('nilai_temuan'))}}</b></h6>
               </div>
             </div>

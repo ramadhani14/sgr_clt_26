@@ -181,7 +181,7 @@
 
   <!-- Main Sidebar Container -->
   <!-- <aside class="main-sidebar sidebar-dark-primary elevation-4"> -->
-  <aside class="main-sidebar sidebar-light-primary elevation-4">
+  <aside class="main-sidebar sidebar-light-success elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link" style="font-size:1rem">
       <img src="{{asset($template->logo_kecil)}}" style="max-height: 30px;" alt="Logo" class="brand-image img-circle elevation-3">

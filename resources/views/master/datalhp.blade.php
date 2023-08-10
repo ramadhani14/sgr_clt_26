@@ -210,7 +210,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body">
-                <h5><b>SUM</b></h5>
+                <h5><b>JUMLAH</b></h5>
                 <h6>Nilai Temuan : <b>{{formatRupiah($data->sum('nilai_temuan'))}}</b></h6>
                 <h6>Sisa Temuan : <b>{{formatRupiah($data->sum('sisa_temuan'))}}</b></h6>
               </div>
@@ -275,7 +275,7 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                 <label class="ket-bintang">Bertanda <span class="bintang">*</span> Wajib diisi</label>
-                <button type="submit" class="btn btn-danger btn-ubah-data" idubah="{{$key->id}}">Simpan</button>
+                <button type="submit" class="btn btn-danger btn-ubah-data" idform="{{$key->id}}">Simpan</button>
             </div>
           </form>
         </div>
@@ -726,7 +726,8 @@
 
     // Fungsi Ubah Data
     $(document).on('click', '.btn-ubah-data', function (e) {
-        idform = $(this).attr('idform');
+      idform = $(this).attr('idform');
+  
         $('#formData_'+idform).validate({
           ignore: ".ignore",
           rules: {
