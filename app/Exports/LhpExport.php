@@ -43,6 +43,10 @@ class LhpExport implements FromCollection, WithHeadings
             $data->where( 'kelompok_temuan', 'LIKE', '%'.$this->data['f_kelompok_temuan'].'%');
             $datasum->where( 'kelompok_temuan', 'LIKE', '%'.$this->data['f_kelompok_temuan'].'%');
         }
+        if($this->data['f_nama_pj']){
+            $data->where( 'nama_pj', 'LIKE', '%'.$this->data['f_nama_pj'].'%');
+            $datasum->where( 'nama_pj', 'LIKE', '%'.$this->data['f_nama_pj'].'%');
+        }
         if($this->data['f_jenis_audit']){
             $data->where( 'jenis_audit', 'LIKE', '%'.$this->data['f_jenis_audit'].'%');
             $datasum->where( 'jenis_audit', 'LIKE', '%'.$this->data['f_jenis_audit'].'%');

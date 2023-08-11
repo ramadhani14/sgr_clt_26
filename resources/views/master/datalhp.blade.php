@@ -67,6 +67,7 @@
                     <input type="hidden" class="form-control" name="f_nama" value="{{app('request')->input('f_nama')}}">
                     <input type="hidden" class="form-control" name="f_tahun" value="{{app('request')->input('f_tahun')}}">
                     <input type="hidden" class="form-control" name="f_kelompok_temuan" value="{{app('request')->input('f_kelompok_temuan')}}">
+                    <input type="hidden" class="form-control" name="f_nama_pj" value="{{app('request')->input('f_nama_pj')}}">
                     <input type="hidden" class="form-control" name="f_jenis_audit" value="{{app('request')->input('f_jenis_audit')}}">
                     <input type="hidden" class="form-control" name="f_ketua_tim" value="{{app('request')->input('f_ketua_tim')}}">
                     <input type="hidden" class="form-control" name="f_no_lhp" value="{{app('request')->input('f_no_lhp')}}">
@@ -344,6 +345,14 @@
               </div>
               <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
                 <input type="text" class="form-control" name="f_kelompok_temuan" placeholder="Filter Data" value="{{app('request')->input('f_kelompok_temuan')}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mb-3">
+                <label for="f_nama_pj">NAMA PENANGGUNG JAWAB (PJ) PENGEMBALIAN</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mb-3">
+                <input type="text" class="form-control" name="f_nama_pj" placeholder="Filter Data" value="{{app('request')->input('f_nama_pj')}}">
               </div>
             </div>
             <div class="row">

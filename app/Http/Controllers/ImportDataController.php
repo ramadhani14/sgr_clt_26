@@ -49,6 +49,10 @@ class ImportDataController extends Controller
             $data->where( 'kelompok_temuan', 'LIKE', '%'.$request->f_kelompok_temuan.'%');
             $filter = true;
         }
+        if($request->f_nama_pj){
+            $data->where( 'nama_pj', 'LIKE', '%'.$request->f_nama_pj.'%');
+            $filter = true;
+        }
         if($request->f_jenis_audit){
             $data->where( 'jenis_audit', 'LIKE', '%'.$request->f_jenis_audit.'%');
             $filter = true;
@@ -76,6 +80,7 @@ class ImportDataController extends Controller
             'f_nama'    => $request->f_nama ?: null,
             'f_tahun'    => $request->f_tahun ?: null,
             'f_kelompok_temuan'    => $request->f_kelompok_temuan ?: null,
+            'f_nama_pj'    => $request->f_nama_pj ?: null,
             'f_jenis_audit'    => $request->f_jenis_audit ?: null,
             'f_ketua_tim'    => $request->f_ketua_tim ?: null,
             'f_no_lhp'    => $request->f_no_lhp ?: null,
