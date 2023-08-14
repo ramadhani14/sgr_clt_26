@@ -84,12 +84,15 @@ Route::middleware([IsAdminOrAff::class])->group(function () {
     // Route::get('/exportsoal/{jns}/{id}', [App\Http\Controllers\PDFController::class, 'exportsoal']);
 
     Route::get('datalhp', [App\Http\Controllers\ImportDataController::class, 'indexlhp']);
+    Route::post('storedatalhp', [App\Http\Controllers\ImportDataController::class, 'storelhp']);
     Route::get('downloadlhp', [App\Http\Controllers\ImportDataController::class, 'downloadlhp']);
     Route::post('updatelhp', [App\Http\Controllers\ImportDataController::class, 'updatelhp']);
     Route::get('datap2hp', [App\Http\Controllers\ImportDataController::class, 'indexp2hp']);
+    Route::post('storedatap2hp', [App\Http\Controllers\ImportDataController::class, 'storep2hp']);
     Route::get('downloadp2hp', [App\Http\Controllers\ImportDataController::class, 'downloadp2hp']);
     Route::post('updatep2hp', [App\Http\Controllers\ImportDataController::class, 'updatep2hp']);
     Route::get('datapengaduan', [App\Http\Controllers\ImportDataController::class, 'indexpengaduan']);
+    Route::post('storedatapengaduan', [App\Http\Controllers\ImportDataController::class, 'storepengaduan']);
     Route::get('downloadpengaduan', [App\Http\Controllers\ImportDataController::class, 'downloadpengaduan']);
     Route::post('updatepengaduan', [App\Http\Controllers\ImportDataController::class, 'updatepengaduan']);
     Route::post('importlhp', [App\Http\Controllers\ImportDataController::class, 'importlhp']);

@@ -189,38 +189,93 @@ class ImportDataController extends Controller
         return Excel::download(new PengaduanExport($data), 'Data_Pengaduan.xlsx');
     }
 
-    public function store(Request $request)
+    public function storelhp(Request $request)
     {
-        $data['fk_kategori_soal'] = $request->fk_kategori_soal_add;
-        $data['soal'] = $request->soal_add;
-        // $data['tingkat'] = $request->tingkat_add;
-        $data['a'] = $request->a_add;
-        $data['b'] = $request->b_add;
-        $data['c'] = $request->c_add;
-        $data['d'] = $request->d_add;
-        $data['e'] = $request->e_add;
-        $data['point_a'] = $request->point_a_add;
-        $data['point_b'] = $request->point_b_add;
-        $data['point_c'] = $request->point_c_add;
-        $data['point_d'] = $request->point_d_add;
-        $data['point_e'] = $request->point_e_add;
-        $data['jawaban'] = $request->jawaban_add;
-
-        $data['pembahasan'] = $request->pembahasan_add;
-
-        // if ($data['soal']=='' || $data['a']=='' || $data['b']=='' || $data['c']=='' || $data['d']=='' || $data['e']=='' || $data['jawaban']=='' || $data['pembahasan']=='') {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Semua kolom harus diisi!'
-        //     ]);
-        //     exit();
-        // }
-
+        $data['file_status'] = $request->file_status_add;
+        $data['nama'] = $request->nama_add;
+        $data['tahun'] = $request->tahun_add;
+        $data['pagu_anggaran'] = $request->pagu_anggaran_add;
+        $data['kondisi_temuan'] = $request->kondisi_temuan_add;
+        $data['kelompok_temuan'] = $request->kelompok_temuan_add;
+        $data['nilai_temuan'] = $request->nilai_temuan_add;
+        $data['rekomendasi'] = $request->rekomendasi_add;
+        $data['nama_pj'] = $request->nama_pj_add;
+        $data['jabatan_pj_terperiksa'] = $request->jabatan_pj_terperiksa_add;
+        $data['jabatan_pj_saat_ini'] = $request->jabatan_pj_saat_ini_add;
+        $data['catatan'] = $request->catatan_add;
+        $data['no_sktjm'] = $request->no_sktjm_add;
+        $data['update_tl'] = $request->update_tl_add;
+        $data['sisa_temuan'] = $request->sisa_temuan_add;
+        $data['kategori'] = $request->kategori_add;
+        $data['jenis_audit'] = $request->jenis_audit_add;
+        $data['ketua_tim'] = $request->ketua_tim_add;
+        $data['no_lhp'] = $request->no_lhp_add;
+        $data['tgl_lhp'] = $request->tgl_lhp_add;
+        $data['ket'] = $request->ket_add;
         $data['created_by'] = Auth::id();
         $data['created_at'] = Carbon::now()->toDateTimeString();
-        $data['updated_by'] = Auth::id();
-        $data['updated_at'] = Carbon::now()->toDateTimeString();
-        $createdata = MasterSoal::create($data);
+        $createdata = MasterTableLhp::create($data);
+        if($createdata){
+            return response()->json([
+                'status' => true,
+                'message' => 'Berhasil menambahkan data'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal. Mohon coba kembali!'
+            ]);
+        }
+    }
+
+    public function storep2hp(Request $request)
+    {
+        $data['file_status'] = $request->file_status_add;
+        $data['nama'] = $request->nama_add;
+        $data['tahun'] = $request->tahun_add;
+        $data['pagu_anggaran'] = $request->pagu_anggaran_add;
+        $data['kondisi_temuan'] = $request->kondisi_temuan_add;
+        $data['kelompok_temuan'] = $request->kelompok_temuan_add;
+        $data['nilai_temuan'] = $request->nilai_temuan_add;
+        $data['rekomendasi'] = $request->rekomendasi_add;
+        $data['nama_pj'] = $request->nama_pj_add;
+        $data['jabatan_pj_terperiksa'] = $request->jabatan_pj_terperiksa_add;
+        $data['jenis_audit'] = $request->jenis_audit_add;
+        $data['no_pkp'] = $request->no_pkp_add;
+        $data['ketua_tim'] = $request->ketua_tim_add;
+        $data['tgl_p2hp'] = $request->tgl_p2hp_add;
+        $data['no_surat'] = $request->no_surat_add;
+        $data['ket'] = $request->ket_add;
+        $data['created_by'] = Auth::id();
+        $data['created_at'] = Carbon::now()->toDateTimeString();
+        $createdata = MasterTableP2hp::create($data);
+        if($createdata){
+            return response()->json([
+                'status' => true,
+                'message' => 'Berhasil menambahkan data'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal. Mohon coba kembali!'
+            ]);
+        }
+    }
+
+    public function storepengaduan(Request $request)
+    {
+        $data['file_status'] = $request->file_status_add;
+        $data['tanggal_laporan'] = $request->tanggal_laporan_add;
+        $data['nama_pelapor'] = $request->nama_pelapor_add;
+        $data['pelaku_utama'] = $request->pelaku_utama_add;
+        $data['judul_laporan'] = $request->judul_laporan_add;
+        $data['detail_laporan'] = $request->detail_laporan_add;
+        $data['uraian'] = $request->uraian_add;
+        $data['status'] = $request->status_add;
+        $data['no_reg'] = $request->no_reg_add;
+        $data['created_by'] = Auth::id();
+        $data['created_at'] = Carbon::now()->toDateTimeString();
+        $createdata = MasterTablePengaduan::create($data);
         if($createdata){
             return response()->json([
                 'status' => true,

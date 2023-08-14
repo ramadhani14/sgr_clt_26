@@ -48,7 +48,12 @@
             <div class="card">
               <div class="card-body">
               <div class="btn-group mbc-3">
-                <span data-toggle="tooltip" data-placement="left" title="Filter Data">
+                <span data-toggle="tooltip" data-placement="left" title="Tambah Data">
+                  <button data-toggle="modal" data-target="#modal-tambah" type="button" class="btn btn-md btn-info">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                  </button>
+                </span>
+                <span style="margin-left:10px" data-toggle="tooltip" data-placement="left" title="Filter Data">
                   <button data-toggle="modal" data-target="#modal-filter" type="button" class="btn btn-md btn-info">
                     <i class="fas fa-filter" aria-hidden="true"></i>
                   </button>
@@ -221,6 +226,81 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal filter -->
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="modal-tambah">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tambah Data</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="_formDataAdd" method="get">
+        <div class="modal-body">
+          <!-- Tambah -->
+
+          <div class="form-group">
+              <label for="file_status_add">FILE STATUS <span class="bintang">*</span></label>
+              <input type="text" class="form-control" id="file_status_add" name="file_status_add" placeholder="Masukkan Data">
+          </div>
+            
+          <div class="form-group">
+              <label for="tanggal_laporan_add">TANGGAL LAPORAN</label>
+              <input type="text" class="form-control" id="tanggal_laporan_add" name="tanggal_laporan_add" placeholder="Masukkan Data">
+          </div>
+
+          <div class="form-group">
+              <label for="nama_pelapor_add">NAMA PELAPOR</label>
+              <input type="text" class="form-control" id="nama_pelapor_add" name="nama_pelapor_add" placeholder="Masukkan Data">
+          </div>
+
+          <div class="form-group">
+              <label for="pelaku_utama_add">PELAKU UTAMA DAN PIHAK LAIN TERLIBAT YANG DILAPORKAN</label>
+              <input type="text" class="form-control" id="pelaku_utama_add" name="pelaku_utama_add" placeholder="Masukkan Data">
+          </div>
+
+          <div class="form-group">
+              <label for="judul_laporan_add">JUDUL LAPORAN</label>
+              <input type="text" class="form-control" id="judul_laporan_add" name="judul_laporan_add" placeholder="Masukkan Data">
+          </div>
+
+          <div class="form-group">
+              <label for="detail_laporan_add">DETAIL LAPORAN</label>
+              <textarea name="detail_laporan_add" id="detail_laporan_add" rows="5" class="form-control" placeholder="Masukkan Data"></textarea>  
+          </div> 
+
+          <div class="form-group">
+              <label for="uraian_add">URAIAN UPAYA TINDAKLANJUT</label>
+              <textarea name="uraian_add" id="uraian_add" rows="5" class="form-control" placeholder="Masukkan Data"></textarea>  
+          </div> 
+
+          <div class="form-group">
+              <label for="status_add">STATUS (SELESAI/PROSES/DITOLAK)</label>
+              <input type="text" class="form-control" id="status_add" name="status_add" placeholder="Masukkan Data">
+          </div>
+
+          <div class="form-group">
+              <label for="no_reg_add">NO REG LAPORAN</label>
+              <input type="text" class="form-control" id="no_reg_add" name="no_reg_add" placeholder="Masukkan Data">
+          </div>
+
+          </div>
+          <div class="modal-footer">
+            <div class="_align_right">
+              <div class="btn-group">
+                <button class="btn btn-md btn-primary" type="submit">Simpan</button>
+              </div>
+            </div>
+          </div>
+          </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal tambah -->
 
 <!-- Modal Import -->
 <div class="modal fade" id="modal-import">
@@ -723,95 +803,17 @@
         });
     });
 
-    // Fungsi Add Data
-    $('#_formData').validate({
+      // Fungsi Add Data
+      $('#_formDataAdd').validate({
           ignore: ".ignore",
           rules: {
-            tingkat_add:{
-              required: true
-            },
-            soal_add: {
-              required: true
-            },
-            a_add: {
-              required: true
-            },
-            b_add: {
-              required: true
-            },
-            c_add: {
-              required: true
-            },
-            d_add: {
-              required: true
-            },
-            e_add: {
-              required: true
-            },
-            jawaban_add: {
-              required: true
-            },
-            pembahasan_add: {
-              required: true
-            },
-            point_a_add: {
-              required: true
-            },
-            point_b_add: {
-              required: true
-            },
-            point_c_add: {
-              required: true
-            },
-            point_d_add: {
-              required: true
-            },
-            point_e_add: {
+            file_status_add:{
               required: true
             }
           },
           messages: {
-            tingkat_add: {
-              required: "Tingkat kesulitan tidak boleh kosong"
-            },
-            soal_add: {
-              required: "Soal tidak boleh kosong"
-            },
-            a_add: {
-              required: "Pilihan A tidak boleh kosong"
-            },
-            b_add: {
-              required: "Pilihan B tidak boleh kosong"
-            },
-            c_add: {
-              required: "Pilihan C tidak boleh kosong"
-            },
-            d_add: {
-              required: "Pilihan D tidak boleh kosong"
-            },
-            e_add: {
-              required: "Pilihan E tidak boleh kosong"
-            },
-            jawaban_add: {
-              required: "Jawaban tidak boleh kosong"
-            },
-            pembahasan_add: {
-              required: "Pembahasan tidak boleh kosong"
-            },
-            point_a_add: {
-              required: "Point Pilihan A tidak boleh kosong"
-            },
-            point_b_add: {
-              required: "Point Pilihan A tidak boleh kosong"
-            },
-            point_c_add: {
-              required: "Point Pilihan A tidak boleh kosong"
-            },
-            point_d_add: {
-              required: "Point Pilihan A tidak boleh kosong"
-            },
-            point_e_add: {
-              required: "Point Pilihan A tidak boleh kosong"
+            file_status_add: {
+              required: "File status tidak boleh kosong"
             }
           },
           errorElement: 'span',
@@ -833,9 +835,9 @@
 
           submitHandler: function () {
           
-            var formData = new FormData($('#_formData')[0]);
+            var formData = new FormData($('#_formDataAdd')[0]);
 
-            var url = "{{ url('storemastersoal') }}";
+            var url = "{{ url('storedatapengaduan') }}";
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
