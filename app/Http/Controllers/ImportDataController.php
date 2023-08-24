@@ -350,6 +350,29 @@ class ImportDataController extends Controller
         }
     }
 
+    public function updatepengaduan(Request $request)
+    {
+        $id = $request->iddata[0];
+        $data['uraian'] = $request->uraian[0];
+        $data['status'] = $request->status[0];
+        $data['updated_by'] = Auth::id();
+        $data['updated_at'] = Carbon::now()->toDateTimeString();
+
+        $updatedata = MasterTablePengaduan::find($id)->update($data);
+
+        if($updatedata){
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil diubah'
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal. Mohon coba kembali!'
+            ]);
+        }
+    }
+
     public function destroy($id)
     {
         $data['deleted_by'] = Auth::id();

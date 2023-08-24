@@ -92,7 +92,7 @@
                   <thead>
                   <tr>
                   <th style="text-align:left"><input type="checkbox" id="checkAll" class="checkAll"> CEKLIS</th>
-                    <!-- <th>UBAH</th> -->
+                    <th>UBAH</th>
                     <!-- <th>NO</th> -->
                     <th>NAMA FILE</th>
                     <th>FILE STATUS</th>
@@ -116,13 +116,13 @@
                     <td width="1%" class="">
                         <input type="checkbox" name="id_master_soal" class="checkbox" value="{{$key->id}}">
                     </td>
-                    <!-- <td width="1%" class="_align_center">
+                    <td width="1%" class="_align_center">
                       <div class="btn-group">
                         <span data-toggle="tooltip" data-placement="left" title="Ubah Data">
                           <button data-toggle="modal" data-target="#modal-edit-{{$key->id}}" type="button" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
                         </span>
                       </div>
-                    </td> -->
+                    </td>
                     <!-- <td width="1%">{{$loop->iteration}}</td> -->
                     <td width="1%">{{$key->nama_file}}</td>
                       <!-- <td width="1%">
@@ -172,6 +172,49 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+    @foreach($data as $key)                   
+    <!-- Modal Edit -->
+    <div class="modal fade" id="modal-edit-{{$key->id}}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Ubah Data</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="post" id="formData_{{$key->id}}" class="form-horizontal">
+            @csrf
+            <input type="hidden" value="{{$key->id}}" name="iddata[]">
+            <div class="modal-body">
+              <!-- <div class="card-body"> -->
+                 <div class="form-group">
+                    <label for="uraian_{{$key->id}}">URAIAN UPAYA TINDAK LANJUT</label>
+                    <textarea name="uraian[]" id="uraian_{{$key->id}}" rows="5" class="form-control" placeholder="URAIAN UPAYA TINDAK LANJUT">{{$key->uraian}}</textarea>  
+                    <!-- <textarea name="ket[]" id="ket_{{$key->id}}" rows="5" class="form-control content_" placeholder="Keterangan">{{$key->ket}}</textarea>   -->
+                </div> 
+
+                <div class="form-group">
+                    <label for="status_{{$key->id}}">STATUS (SELESAI/PROSES/DITOLAK)</label>
+                    <input type="text" class="form-control" id="status_{{$key->id}}" name="status[]" placeholder="STATUS (SELESAI/PROSES/DITOLAK)" value="{{$key->status}}">
+                </div>
+                <!-- /.form-group -->
+              <!-- </div> -->
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <label class="ket-bintang">Bertanda <span class="bintang">*</span> Wajib diisi</label>
+                <button type="submit" class="btn btn-danger btn-ubah-data" idform="{{$key->id}}">Simpan</button>
+            </div>
+          </form>
+        </div>
+      <!-- /.modal-content -->
+      </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal edit -->
+    @endforeach
 
     <!-- Modal Filter -->
 <div class="modal fade" id="modal-filter">
@@ -424,6 +467,85 @@
       }else{        
         $("#modal-hapus-all").modal('show');
       }
+    });
+
+      // Fungsi Ubah Data
+      $(document).on('click', '.btn-ubah-data', function (e) {
+        idform = $(this).attr('idform');
+        $('#formData_'+idform).validate({
+          ignore: ".ignore",
+          rules: {
+            'soal[]': {
+              required: true
+            }
+          },
+          messages: {
+            'soal[]': {
+              required: "Soal tidak boleh kosong"
+            }
+          },
+          errorElement: 'span',
+          errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+            Swal.fire({
+              html: "Harap isi kolom dengan bertanda *",
+              icon: 'warning',
+              showConfirmButton: true
+            });
+          },
+          highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+          },
+          unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+          },
+
+          submitHandler: function () {
+          
+            var formData = new FormData($('#formData_'+idform)[0]);
+
+            var url = "{{ url('/updatepengaduan') }}";
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: "JSON",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $.LoadingOverlay("show");
+                },
+                success: function (response) {
+                    if (response.status == true) {
+                        Swal.fire({
+                          html: response.message,
+                          icon: 'success',
+                          showConfirmButton: false
+                        });
+                        reload(1000);
+                    }else{
+                      Swal.fire({
+                          html: response.message,
+                          icon: 'error',
+                          confirmButtonText: 'Ok'
+                      });
+                    }
+                },
+                error: function (xhr, status) {
+                    alert('Error!!!');
+                },
+                complete: function () {
+                    $.LoadingOverlay("hide");
+                }
+            });   
+          }
+        });
     });
 
     $(".checkAll").on('change',function(){
